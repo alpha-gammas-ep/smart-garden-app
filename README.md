@@ -2,4 +2,4 @@
 React Native app for the Smart Garden.
 
 Contributors:
-Kristel Fung
+- Kristel Fung
