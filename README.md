@@ -6,3 +6,4 @@ Contributors:
 - Kristel Fung
 - Sadyant Behera
 - Brenda Huang
+- Lucas Huang
