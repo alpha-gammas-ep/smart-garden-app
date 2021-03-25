@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-function WelcomeScreen(props) {
+const WelcomeScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
@@ -15,6 +15,9 @@ function WelcomeScreen(props) {
                 resizeMode='contain'
             />
             <TouchableOpacity
+                onPress={() =>
+                    navigation.navigate('Home')
+                }
                 style={styles.growButton}
                 underlayColor='#ffffff'
                 >
@@ -25,6 +28,9 @@ function WelcomeScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    view: {
+        backgroundColor: '#ffffff',
+    },
     container: {
         flex: 1,
         justifyContent: 'space-between',
