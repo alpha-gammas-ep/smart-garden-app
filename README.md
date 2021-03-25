@@ -5,3 +5,4 @@ Contributors:
 - Jeffrey Yao
 - Kristel Fung
 - Sadyant Behera
+- Brenda Huang
