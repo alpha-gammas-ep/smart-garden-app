@@ -1,23 +1,24 @@
 import React from 'react';
-import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 function WelcomeScreen(props) {
     return (
-        <View style = {styles.container}>
-            <Text style = {{color: '#000', fontSize: 45, fontWeight: 'bold'}}>
+        <View style={styles.container}>
+            <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
                 Smart
-                <Text style = {{color: '#669850'}}> Garden</Text>
+                <Text style={{color: '#669850'}}> Garden</Text>
             </Text>
 
             <Image 
-                source = {require('../assets/gardening-lady.png')}
-                style = {styles.image}
-                resizeMode = 'contain'
+                source={require('../assets/gardening-lady.png')}
+                style={styles.image}
+                resizeMode='contain'
             />
             <TouchableOpacity
-                style = {styles.growButton}
-                underlayColor = '#fff'>
-                <Text style = {styles.growText}>Grow</Text>
+                style={styles.growButton}
+                underlayColor='#ffffff'
+                >
+                <Text style={styles.growText}>Grow</Text>
             </TouchableOpacity>
         </View>
     );
@@ -37,14 +38,14 @@ const styles = StyleSheet.create({
         backgroundColor:'#669850',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#fff',
+        borderColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center'
     },
     growText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color:'#fff'
+        color:'#ffffff'
     },
     image: {
         width: '60%',
