@@ -19,5 +19,22 @@
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "smart-garden-app",
+  "description": "React Native app for the Smart Garden.",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alpha-gammas-ep/smart-garden-app.git"
+  },
+  "keywords": [
+    "smart",
+    "garden"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alpha-gammas-ep/smart-garden-app/issues"
+  },
+  "homepage": "https://github.com/alpha-gammas-ep/smart-garden-app#readme"
 }
