@@ -1,7 +1,11 @@
 import React from 'react';
 import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 function WelcomeScreen(props) {
+    const goToHome = () => {
+        Actions.Home()
+    }
     return (
         <View style={styles.container}>
             <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
@@ -15,6 +19,7 @@ function WelcomeScreen(props) {
                 resizeMode='contain'
             />
             <TouchableOpacity
+                onPress={goToHome}
                 style={styles.growButton}
                 underlayColor='#ffffff'
                 >
@@ -25,6 +30,9 @@ function WelcomeScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    view: {
+        backgroundColor: '#ffffff',
+    },
     container: {
         flex: 1,
         justifyContent: 'space-between',
