@@ -4,16 +4,20 @@ import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-nat
 function WelcomeScreen(props) {
     return (
         <View style = {styles.container}>
-            <Text>Smart Garden</Text>
+            <Text style = {{color: '#000', fontSize: 45, fontWeight: 'bold'}}>
+                Smart
+                <Text style = {{color: '#669850'}}> Garden</Text>
+            </Text>
+
             <Image 
                 source = {require('../assets/gardening-lady.png')}
                 style = {styles.image}
                 resizeMode = 'contain'
             />
             <TouchableOpacity
-                style={styles.growButton}
-                underlayColor='#fff'>
-                <Text style={styles.growText}>Grow</Text>
+                style = {styles.growButton}
+                underlayColor = '#fff'>
+                <Text style = {styles.growText}>Grow</Text>
             </TouchableOpacity>
         </View>
     );
@@ -21,26 +25,30 @@ function WelcomeScreen(props) {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'flex-end',
-        alignItems: 'center'
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 200,
+        marginBottom: 200
     },
     growButton: {
         width: '50%',
         height: 50,
         backgroundColor:'#669850',
-        borderRadius:10,
+        borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#fff'
+        borderColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     growText: {
-        color:'#fff',
-        textAlign:'center',
-        paddingLeft : 10,
-        paddingRight : 10
+        fontSize: 20,
+        fontWeight: 'bold',
+        color:'#fff'
     },
     image: {
-        width: '50%',
-        height: '50%'
+        width: '60%',
+        height: '60%'
     }
 })
 
