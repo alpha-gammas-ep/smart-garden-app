@@ -1,11 +1,7 @@
 import React from 'react';
 import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
-function WelcomeScreen(props) {
-    const goToHome = () => {
-        Actions.Home()
-    }
+const WelcomeScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
@@ -19,7 +15,9 @@ function WelcomeScreen(props) {
                 resizeMode='contain'
             />
             <TouchableOpacity
-                onPress={goToHome}
+                onPress={() =>
+                    navigation.navigate('Home')
+                }
                 style={styles.growButton}
                 underlayColor='#ffffff'
                 >
