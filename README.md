@@ -7,8 +7,14 @@ Contributors:
 - Brenda Huang
 - Lucas Huang
 
-To run the app on an iOS simulator follow these steps:
-1. Open Xcode and go to Xcode -> Open Developer Tool -> Simulator.
-2. Navigate to the smart-garden directory.
-3. Open the terminal and type "npm start".
-4. Go the the browser tab opened by the previous command and click "Run on iOS simulator".
+To run the app on an iOS simulator follow these steps.
+
+`cd ./path/to/app/here`
+
+On first run:
+
+`npm install`
+
+After you've run `npm install` once:
+
+`npm start`
