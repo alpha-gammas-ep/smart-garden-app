@@ -1,4 +1,6 @@
 # smart-garden-app
 React Native app for the Smart Garden.
+
 Contributors:
-Jeffrey Yao
+- Jeffrey Yao
+- Kristel Fung
