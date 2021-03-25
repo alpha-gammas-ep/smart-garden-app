@@ -14,14 +14,12 @@ function WelcomeScreen(props) {
                 style={styles.image}
                 resizeMode='contain'
             />
-            <Router>
-              <TouchableOpacity
+            <TouchableOpacity
                 style={styles.growButton}
                 underlayColor='#ffffff'
                 >
                 <Text style={styles.growText}>Grow</Text>
-              </TouchableOpacity>
-            </Router>
+            </TouchableOpacity>
         </View>
     );
 }
