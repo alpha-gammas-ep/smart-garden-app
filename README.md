@@ -21,3 +21,6 @@ After you've run `npm install` once:
 `npm start`
 
 Expo should begin running in a local browser. Click "Run on iOS simulator" to launch the app.
+
+Dependencies:
+- [React Navigation](https://reactnavigation.org/docs/getting-started)
