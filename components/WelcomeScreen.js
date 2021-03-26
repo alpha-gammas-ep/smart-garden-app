@@ -9,7 +9,7 @@ const WelcomeScreen = ({navigation}) => {
                 <Text style={{color: '#669850'}}> Garden</Text>
             </Text>
 
-            <Image 
+            <Image
                 source={require('../assets/gardening-lady.png')}
                 style={styles.image}
                 resizeMode='contain'
@@ -30,13 +30,17 @@ const WelcomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     view: {
         backgroundColor: '#ffffff',
+        width: '100%'
     },
     container: {
         flex: 1,
+        backgroundColor: '#ffffff',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 200,
-        marginBottom: 200
+        height: '50%',
+
+        marginTop: 0,
+        marginBottom: 0
     },
     growButton: {
         width: '50%',
