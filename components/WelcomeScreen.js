@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 200,
-        marginBottom: 200
+        marginBottom: 200,
+        backgroundColor: '#ffffff'
     },
     growButton: {
         width: '50%',
