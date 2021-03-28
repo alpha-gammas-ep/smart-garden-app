@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Home from './Home.js';
 import Settings from './Settings.js';
-import Calendar from './Calendar.js';
+import CalendarScreen from './CalendarScreen.js';
 import Pots from './Pots.js';
 
 const Tab = createBottomTabNavigator();
@@ -44,7 +44,7 @@ function Tabs() {
         >
             <Tab.Screen name="Home" component={Home}/>
             <Tab.Screen name="Pots" component={Pots}/>
-            <Tab.Screen name="Calendar" component={Calendar}/>
+            <Tab.Screen name="Calendar" component={CalendarScreen}/>
             <Tab.Screen name="Settings" component={Settings}/>
         </Tab.Navigator>
     );

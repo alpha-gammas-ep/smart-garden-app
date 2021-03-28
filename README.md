@@ -24,3 +24,4 @@ Expo should begin running in a local browser. Click "Run on iOS simulator" to la
 
 Dependencies:
 - [React Navigation](https://reactnavigation.org/docs/getting-started)
+- [React Native Calendars](https://www.npmjs.com/package/react-native-calendars)
