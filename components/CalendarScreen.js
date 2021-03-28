@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100%',
     },
     topContainer: {
         paddingTop: 50,
@@ -75,10 +76,7 @@ function CalendarScreen(props) {
         <View style={styles.container}>
             <View style={styles.topContainer}>
                 <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
-                    Welcome back,{'\n'}
-                    <Text style={{color: '#669850'}}>
-                        Liana!
-                    </Text>
+                    Welcome back!
                 </Text>
             </View>
             <View style={styles.middleContainer}>
