@@ -4,7 +4,7 @@ import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-nat
 const WelcomeScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
-            <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+            <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold', justifyContent: "flex-end"}}>
                 Smart
                 <Text style={{color: '#669850'}}> Garden</Text>
             </Text>
@@ -35,19 +35,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-<<<<<<< HEAD
+
         height: '50%',
 
-        marginTop: 0,
-        marginBottom: 0
-=======
-        marginTop: 200,
-        marginBottom: 200,
-        backgroundColor: '#ffffff'
->>>>>>> main
+        paddingTop: 200,
+        paddingBottom: 200
     },
+
     growButton: {
         width: '50%',
         height: 50,
