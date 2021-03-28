@@ -1,24 +1,60 @@
 import React from 'react';
 import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        height: '100%'
+    },
+    pot: {
+        flex: 1,
+        height: 200,
+        width: '50%',
+        backgroundColor: '#d4f0c7'
+    }
+})
+
+let plantData = [
+    {
+        id: 1,
+        name: 'Sunflower'
+    },
+    {
+        id: 2,
+        name: 'Mayflower'
+    },
+    {
+        id: 3,
+        name: 'Cauliflower'
+    },
+    {
+        id: 4,
+        name: 'Spinach'
+    }
+]
+
+let allPots = plantData.map(plantInfo => (
+    <TouchableOpacity
+        key={plantInfo.id}
+        onPress={() =>
+            console.log('sheeeeeeeeesh')
+        }
+        style={styles.pot}
+        underlayColor='#d4f0c7'
+        >
+        <Text style={{}}>{plantInfo.name}</Text>
+    </TouchableOpacity> 
+));
+
 function Pots(props) {
     return (
         <View style={styles.container}>
-            <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
-                Pots
-            </Text>
+            {allPots}
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 200,
-        marginBottom: 200
-    },
-})
 
 export default Pots;
