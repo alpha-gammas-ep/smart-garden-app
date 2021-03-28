@@ -7,8 +7,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         display: 'flex',
         justifyContent: 'center',
+<<<<<<< HEAD
         alignItems: 'center',
         height: '100%',
+=======
+        alignItems: 'center'
+>>>>>>> 462892477f904cf165a9063dc1f192227caedac8
     },
     topContainer: {
         paddingTop: 50,
@@ -76,7 +80,14 @@ function CalendarScreen(props) {
         <View style={styles.container}>
             <View style={styles.topContainer}>
                 <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
+<<<<<<< HEAD
                     Welcome back!
+=======
+                    Welcome back,{'\n'}
+                    <Text style={{color: '#669850'}}>
+                        Liana!
+                    </Text>
+>>>>>>> 462892477f904cf165a9063dc1f192227caedac8
                 </Text>
             </View>
             <View style={styles.middleContainer}>
