@@ -72,7 +72,7 @@ let waterNotifs = wateringData.map(wateringInfo => (
 
 function CalendarScreen(props) {
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.topContainer}>
                 <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
                     Welcome back,{'\n'}
@@ -94,7 +94,7 @@ function CalendarScreen(props) {
 
                 </Calendar>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
