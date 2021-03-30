@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from "react";
 import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Alert, Modal, Pressable } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -30,63 +31,39 @@ const styles = StyleSheet.create({
 let plantData = [
     {
         id: 1,
-        name: 'Sunflower'
+        name: 'Sunflower', 
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     },
     {
         id: 2,
-        name: 'Mayflower'
+        name: 'Mayflower',
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     },
     {
         id: 3,
-        name: 'Cauliflower'
+        name: 'Cauliflower',
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     },
     {
         id: 4,
-        name: 'Spinach'
+        name: 'Spinach',
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     },
     {
         id: 5,
-        name: 'Kristel'
+        name: 'Kristel',
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     },
     {
-        id:6,
-        name: 'Fung'
+        id: 6,
+        name: 'Fung',
+        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
     }
 ]
 
-let allPots = plantData.map(plantInfo => (
-    <TouchableOpacity
-        key={plantInfo.id}
-        onPress={() =>
-            console.log('sheeeeeeeeesh')
-        }
-        style={styles.pot}
-        underlayColor='#d4f0c7'
-    >
-        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plantInfo.id}</Text>
-        <View style={{alignItems: 'center'}}>
-            <Image 
-                source={require('../assets/pot-icon.png')}
-                style={{width: 175, height: 175}}
-                resizeMode='contain'
-            />
-        </View>
-        <View style={{
-            backgroundColor: '#ffffff',
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: '#ffffff',
-            alignItems: 'center',
-            padding: 3
-        }}>
-            <Text style={{fontSize: 15}}>{plantInfo.name}</Text>
-        </View>
-    </TouchableOpacity>
-));
-
 const formattedPots = () => {
     let result = []
-    var i
+    let i
     for (i = 0; i < allPots.length - 1; i += 2) {
         result.push(
             <View key={i} style={styles.potRow}>
@@ -105,20 +82,100 @@ const formattedPots = () => {
     return result
 }
 
-function Pots(props) {
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.topContainer}>
-                <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
-                    Liana's{'\n'}
-                    <Text style={{color: '#669850'}}>
-                        Garden
+class Pots extends Component {
+    state = {
+        modalVisible: false,
+        plants: [{
+            id: 0,
+            name: 'Sunflower', 
+            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
+        }, 
+        {
+            id: 1,
+            name: 'Mayflower',
+            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
+        },
+        {
+            id: 2,
+            name: 'Cauliflower',
+            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
+        },
+        {
+            id: 3,
+            name: 'Spinach',
+            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
+        }]
+    };
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+
+    render() {
+        const {modalVisible} = this.state;
+        return (
+            <ScrollView contentContainerStyle={styles.container}>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        this.setModalVisible(!modalVisible);
+                    }}
+                    >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Hello World!</Text>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => this.setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Hide Modal</Text>
+                        </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+
+                <View style={styles.topContainer}>
+                    <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+                        My{' '}
+                        <Text style={{color: '#669850'}}>
+                            Garden
+                        </Text>
                     </Text>
-                </Text>
-            </View>
-            {formattedPots()}
-        </ScrollView>
-    );
+                </View>
+                {this.state.plants.map((plantInfo) => 
+                    <TouchableOpacity
+                        key={plantInfo.id}
+                        onPress={() => this.setModalVisible(true)}
+                        style={styles.pot}
+                        underlayColor='#d4f0c7'
+                    >
+                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plantInfo.id+1}</Text>
+                        <View style={{alignItems: 'center'}}>
+                            <Image 
+                                source={require('../assets/pot-icon.png')}
+                                style={{width: 175, height: 175}}
+                                resizeMode='contain'
+                            />
+                        </View>
+                        <View style={{
+                            backgroundColor: '#ffffff',
+                            borderRadius: 20,
+                            borderWidth: 1,
+                            borderColor: '#ffffff',
+                            alignItems: 'center',
+                            padding: 3
+                        }}>
+                            <Text style={{fontSize: 15}}>{plantInfo.name}</Text>
+                        </View>
+                    </TouchableOpacity>
+                )}
+            </ScrollView>
+        );
+    }
 }
 
 export default Pots;
