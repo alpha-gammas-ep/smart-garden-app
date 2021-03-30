@@ -25,62 +25,71 @@ const styles = StyleSheet.create({
         width: '95%',
         display: 'flex',
         flexDirection: 'row'
-    }
+    },
+
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+      },
+      buttonOpen: {
+        backgroundColor: "#F194FF",
+      },
+      buttonClose: {
+        backgroundColor: "#2196F3",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+      }
 })
 
-let plantData = [
-    {
-        id: 1,
-        name: 'Sunflower', 
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    },
-    {
-        id: 2,
-        name: 'Mayflower',
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    },
-    {
-        id: 3,
-        name: 'Cauliflower',
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    },
-    {
-        id: 4,
-        name: 'Spinach',
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    },
-    {
-        id: 5,
-        name: 'Kristel',
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    },
-    {
-        id: 6,
-        name: 'Fung',
-        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-    }
-]
-
-const formattedPots = () => {
-    let result = []
-    let i
-    for (i = 0; i < allPots.length - 1; i += 2) {
-        result.push(
-            <View key={i} style={styles.potRow}>
-                {allPots[i]}
-                {allPots[i + 1]}
-            </View>
-        )
-    }
-    if (allPots.length % 2 == 1) {
-        result.push(
-            <View key={allPots.length - 1} style={styles.potRow}>
-                {allPots[allPots.length - 1]}
-            </View>
-        )
-    }
-    return result
-}
+// const formattedPots = () => {
+//     let result = []
+//     let i
+//     for (i = 0; i < allPots.length - 1; i += 2) {
+//         result.push(
+//             <View key={i} style={styles.potRow}>
+//                 {allPots[i]}
+//                 {allPots[i + 1]}
+//             </View>
+//         )
+//     }
+//     if (allPots.length % 2 == 1) {
+//         result.push(
+//             <View key={allPots.length - 1} style={styles.potRow}>
+//                 {allPots[allPots.length - 1]}
+//             </View>
+//         )
+//     }
+//     return result
+// }
 
 class Pots extends Component {
     state = {
