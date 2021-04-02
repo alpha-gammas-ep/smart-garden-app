@@ -100,18 +100,8 @@ class Pots extends Component {
             heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
         }, 
         {
-            id: 1,
-            name: 'Mayflower',
-            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-        },
-        {
             id: 2,
-            name: 'Cauliflower',
-            heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-        },
-        {
-            id: 3,
-            name: 'Spinach',
+            name: 'Mayflower',
             heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
         }]
     };
@@ -162,7 +152,7 @@ class Pots extends Component {
                         style={styles.pot}
                         underlayColor='#d4f0c7'
                     >
-                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plantInfo.id+1}</Text>
+                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plantInfo.id+1} and {plantInfo.id+2}</Text>
                         <View style={{alignItems: 'center'}}>
                             <Image 
                                 source={require('../assets/pot-icon.png')}
