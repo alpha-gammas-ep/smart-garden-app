@@ -1,96 +1,101 @@
-import React from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 
-function Settings(props) {
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={{fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
-                Settings
-            </Text>
-            <View style={styles.potContainer}>
-            <Text style={styles.potText}>Pot 1 and 2</Text>
-            <Text style={styles.potInfo}>Plant Type</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Soil Type</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Pot Diameter</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Pot Height</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            </View>
-
-
-            <View style={styles.potContainer}>
-            <Text style={styles.potText}>Pot 3 and 4</Text>
-            <Text style={styles.potInfo}>Plant Type</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Soil Type</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Pot Diameter</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            <Text style={styles.potInfo}>Pot Height</Text>
-            <DropDownPicker
-              containerStyle={{height: 40, width: 300}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                justifyContent: 'space-between'
-                }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              />
-            </View>
-        </ScrollView>
-    );
+class Settings extends Component {
+    state = {
+        
+    }
+    render () {
+        return (
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={{fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
+                    Settings
+                </Text>
+                <View style={styles.potContainer}>
+                <Text style={styles.potText}>Pot 1 and 2</Text>
+                <Text style={styles.potInfo}>Plant Type</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Soil Type</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Pot Diameter</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Pot Height</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                </View>
+    
+    
+                <View style={styles.potContainer}>
+                <Text style={styles.potText}>Pot 3 and 4</Text>
+                <Text style={styles.potInfo}>Plant Type</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Soil Type</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Pot Diameter</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                <Text style={styles.potInfo}>Pot Height</Text>
+                <DropDownPicker
+                  containerStyle={{height: 40, width: 300}}
+                  style={{backgroundColor: '#fafafa'}}
+                  itemStyle={{
+                    justifyContent: 'space-between'
+                    }}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                </View>
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
