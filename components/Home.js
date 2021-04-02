@@ -3,7 +3,8 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 class Home extends Component {
     state = {
-        
+        time: "10:00:00",
+        percent: 87
     }
     render() {
         return (
@@ -21,13 +22,13 @@ class Home extends Component {
                     style={styles.image}
                     resizeMode='contain'
                 />
-                <Image
-                    source={require('../assets/ellipse.png')}
-                    style={styles.image2}
-                    resizeMode='contain'
-                />
+                <Text style={styles.percent}>
+                    {this.state.percent}%
+                    {'\n'}
+                    <Text style={styles.filled}>filled</Text>
+                </Text>
                 </View>    
-                <Text style={styles.waterTime}>00:00:00{'\n'}until refill</Text>
+                <Text style={styles.waterTime}>{this.state.time}{'\n'}until refill</Text>
                 </View>
             </View>
             
@@ -63,12 +64,18 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20
     },
-    image2: {
+    percent: {
         flex: 3,
+        fontSize: 50,
         width: '80%',
         height: '80%',
         marginLeft: 20,
-        marginRight: 20
+        marginRight: 20,
+        marginTop: 50,
+        textAlign: "center"
+    },
+    filled: {
+        fontSize: 30
     },
     waterTime: {
         flex : 1,
