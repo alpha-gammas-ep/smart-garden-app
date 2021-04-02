@@ -10,7 +10,7 @@ function Settings(props) {
                 Settings
             </Text>
             <View style={styles.potContainer}>
-            <Text style={styles.potText}>Pot 1</Text>
+            <Text style={styles.potText}>Pot 1 and 2</Text>
             <Text style={styles.potInfo}>Plant Type</Text>
             <DropDownPicker
               containerStyle={{height: 40, width: 300}}
@@ -51,7 +51,7 @@ function Settings(props) {
 
 
             <View style={styles.potContainer}>
-            <Text style={styles.potText}>Pot 2</Text>
+            <Text style={styles.potText}>Pot 3 and 4</Text>
             <Text style={styles.potInfo}>Plant Type</Text>
             <DropDownPicker
               containerStyle={{height: 40, width: 300}}
