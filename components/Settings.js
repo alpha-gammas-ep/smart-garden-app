@@ -4,8 +4,23 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 class Settings extends Component {
-    state = {
-        
+    constructor(props) {
+        super(props);
+        this.state = { 
+            settings: {},
+            loading: true
+        }
+    }
+    componentDidMount() {
+        this.setState({ loading: true })
+        db.ref('/settings').on('value', snapshot => {
+            let data = snapshot.val() ? snapshot.val() : {};
+            let settings = {...data};
+            this.setState({
+                settings: settings,
+                loading: false
+            });
+        });
     }
     render () {
         return (
