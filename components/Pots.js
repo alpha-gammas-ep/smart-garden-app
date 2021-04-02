@@ -2,95 +2,6 @@ import React, { Component } from "react";
 import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { Alert, Modal, Pressable } from "react-native";
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#ffffff',
-        alignItems: 'center'
-    },
-    topContainer: {
-        marginVertical: 25,
-        width: '90%'
-    },
-    pot: {
-        flex: 1,
-        height: 300,
-        backgroundColor: '#e1eed3',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ffffff',
-        padding: 20,
-        margin: 5
-    },
-    potRow: {
-        width: '95%',
-        display: 'flex',
-        flexDirection: 'row'
-    },
-
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-      },
-      modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-      },
-      button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-      },
-      buttonOpen: {
-        backgroundColor: "#F194FF",
-      },
-      buttonClose: {
-        backgroundColor: "#2196F3",
-      },
-      textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-      },
-      modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-      }
-})
-
-// const formattedPots = () => {
-//     let result = []
-//     let i
-//     for (i = 0; i < allPots.length - 1; i += 2) {
-//         result.push(
-//             <View key={i} style={styles.potRow}>
-//                 {allPots[i]}
-//                 {allPots[i + 1]}
-//             </View>
-//         )
-//     }
-//     if (allPots.length % 2 == 1) {
-//         result.push(
-//             <View key={allPots.length - 1} style={styles.potRow}>
-//                 {allPots[allPots.length - 1]}
-//             </View>
-//         )
-//     }
-//     return result
-// }
-
 class Pots extends Component {
     state = {
         modalVisible: false,
@@ -176,5 +87,73 @@ class Pots extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#ffffff',
+        alignItems: 'center'
+    },
+    topContainer: {
+        marginVertical: 25,
+        width: '90%'
+    },
+    pot: {
+        flex: 1,
+        height: 300,
+        backgroundColor: '#e1eed3',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        padding: 20,
+        margin: 5
+    },
+    potRow: {
+        width: '95%',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+      },
+      buttonOpen: {
+        backgroundColor: "#F194FF",
+      },
+      buttonClose: {
+        backgroundColor: "#2196F3",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+      }
+})
 
 export default Pots;
