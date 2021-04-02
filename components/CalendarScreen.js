@@ -1,6 +1,70 @@
-import React from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Calendar} from 'react-native-calendars';
+
+class CalendarScreen extends Component {
+    state = {
+        wateringData: [
+            {
+                id: 1,
+                date: 'March 7, 2021',
+                time: '5:00 PM',
+                plant: 'Spinach'
+            },
+            {
+                id: 2,
+                date: 'March 9, 2021',
+                time: '3:00 PM',
+                plant: 'Cauliflower'
+            }
+        ]
+    }
+    render() {
+        return (
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.topContainer}>
+                    <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
+                        Welcome back!
+                    </Text>
+                </View>
+                <View style={styles.middleContainer}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        Upcoming Waters
+                    </Text>
+                    <View style={styles.waterContainer}>
+                        
+                    {this.state.wateringData.map(wateringInfo => (
+                        <View key={wateringInfo.id} style={styles.waterNotif}>
+                            <View style={{display: 'flex', flexDirection: 'row'}}>
+                                <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>
+                                    {wateringInfo.date}
+                                </Text>
+                                <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', paddingTop: 15}}>
+                                    Watering{'\n'}
+                                </Text>
+                            </View>
+                            <View style={{display: 'flex', flexDirection: 'row', paddingLeft: 10, paddingBottom: 15}}>
+                                <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
+                                    {wateringInfo.time}
+                                </Text>
+                                <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
+                                    {wateringInfo.plant}
+                                </Text>
+                            </View>
+                        </View>
+                    ))}
+    
+                    </View>
+                </View>
+                <View style={styles.bottomContainer}>
+                    <Calendar>
+    
+                    </Calendar>
+                </View>
+            </ScrollView>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -34,66 +98,5 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 })
-
-let wateringData = [
-    {
-        id: 1,
-        date: 'March 7, 2021',
-        time: '5:00 PM',
-        plant: 'Spinach'
-    },
-    {
-        id: 2,
-        date: 'March 9, 2021',
-        time: '3:00 PM',
-        plant: 'Cauliflower'
-    }
-];
-
-let waterNotifs = wateringData.map(wateringInfo => (
-    <View key={wateringInfo.id} style={styles.waterNotif}>
-        <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>
-                {wateringInfo.date}
-            </Text>
-            <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', paddingTop: 15}}>
-                Watering{'\n'}
-            </Text>
-        </View>
-        <View style={{display: 'flex', flexDirection: 'row', paddingLeft: 10, paddingBottom: 15}}>
-            <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
-                {wateringInfo.time}
-            </Text>
-            <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
-                {wateringInfo.plant}
-            </Text>
-        </View>
-    </View>
-));
-
-function CalendarScreen(props) {
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.topContainer}>
-                <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
-                    Welcome back!
-                </Text>
-            </View>
-            <View style={styles.middleContainer}>
-                <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                    Upcoming Waters
-                </Text>
-                <View style={styles.waterContainer}>
-                    {waterNotifs}
-                </View>
-            </View>
-            <View style={styles.bottomContainer}>
-                <Calendar>
-
-                </Calendar>
-            </View>
-        </ScrollView>
-    );
-}
 
 export default CalendarScreen;
