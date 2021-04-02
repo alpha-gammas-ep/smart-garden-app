@@ -3,8 +3,12 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 class Home extends Component {
     state = {
-        time: "10:00:00",
-        percent: 87
+        timeFilled: "",
+        timeNow: "",
+        intervalOne: "",
+        intervalTwo: "",
+        volumeOne: "",
+        volumeTwo: ""
     }
     render() {
         return (
