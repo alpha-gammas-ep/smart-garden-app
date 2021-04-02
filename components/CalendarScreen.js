@@ -86,7 +86,7 @@ function CalendarScreen(props) {
                 <View style={styles.waterContainer}>
                     {waterNotifs}
                 </View>
-            </View >
+            </View>
             <View style={styles.bottomContainer}>
                 <Calendar>
 
