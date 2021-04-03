@@ -1,100 +1,190 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View, TextInput} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import {db} from '../config';
 
 class Settings extends Component {
-    state = {
-        
+    constructor(props) {
+        super(props);
+        this.state = { 
+            settings: {},
+            loading: true
+        }
+    }
+    componentDidMount() {
+        this.setState({ loading: true })
+        db.ref('/settings').on('value', snapshot => {
+            let data = snapshot.val() ? snapshot.val() : {};
+            let settings = {...data};
+            this.setState({
+                settings: settings,
+                loading: false
+            });
+        });
     }
     render () {
-        return (
-            <ScrollView contentContainerStyle={styles.container}>
-                <Text style={{fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
-                    Settings
-                </Text>
-                <View style={styles.potContainer}>
-                <Text style={styles.potText}>Pot 1 and 2</Text>
-                <Text style={styles.potInfo}>Plant Type</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Soil Type</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Pot Diameter</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Pot Height</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                </View>
-    
-    
-                <View style={styles.potContainer}>
-                <Text style={styles.potText}>Pot 3 and 4</Text>
-                <Text style={styles.potInfo}>Plant Type</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Soil Type</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Pot Diameter</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                <Text style={styles.potInfo}>Pot Height</Text>
-                <DropDownPicker
-                  containerStyle={{height: 40, width: 300}}
-                  style={{backgroundColor: '#fafafa'}}
-                  itemStyle={{
-                    justifyContent: 'space-between'
-                    }}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
-                  />
-                </View>
-            </ScrollView>
-        );
+        if (!this.state.loading) {
+            return (
+                <ScrollView contentContainerStyle={styles.container}>
+                    <Text style={{fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
+                        Settings
+                    </Text>
+                    <View style={styles.potContainer}>
+                    <Text style={styles.potText}>Pot 1 and 2</Text>
+                    <Text style={styles.potInfo}>Plant Type</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_0"]["plant"]}
+                        items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    
+                    <Text style={styles.potInfo}>Soil Type</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_0"]["soil"]}
+                        items={[
+                            {label: "sandy", value: "sandy"},
+                            {label: "chalk", value: "chalk"},
+                            {label: "clay", value: "clay"},
+                            {label: "loam", value: "loam"},
+                            {label: "silt", value: "silt"},
+                            {label: "peat", value: "peat"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_0"]["diameter"]}
+                        items={[
+                            {label: "6", value: "6"},
+                            {label: "7", value: "7"},
+                            {label: "8", value: "8"},
+                            {label: "9", value: "9"},
+                            {label: "10", value: "10"},
+                            {label: "11", value: "11"},
+                            {label: "12", value: "12"},
+                            {label: "13", value: "13"},
+                            {label: "14", value: "14"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    <Text style={styles.potInfo}>Pot Height</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_0"]["height"]}
+                        items={[
+                            {label: "6", value: "6"},
+                            {label: "7", value: "7"},
+                            {label: "8", value: "8"},
+                            {label: "6", value: "9"},
+                            {label: "7", value: "10"},
+                            {label: "8", value: "11"},
+                            {label: "6", value: "12"},
+                            {label: "7", value: "13"},
+                            {label: "8", value: "14"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    </View>
+        
+                    <View style={styles.potContainer}>
+                    <Text style={styles.potText}>Pot 3 and 4</Text>
+                    <Text style={styles.potInfo}>Plant Type</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_1"]["plant"]}
+                        items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    <Text style={styles.potInfo}>Soil Type</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_1"]["soil"]}
+                        items={[
+                            {label: "sandy", value: "sandy"},
+                            {label: "chalk", value: "chalk"},
+                            {label: "clay", value: "clay"},
+                            {label: "loam", value: "loam"},
+                            {label: "silt", value: "silt"},
+                            {label: "peat", value: "peat"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_1"]["diameter"]}
+                        items={[
+                            {label: "6", value: "6"},
+                            {label: "7", value: "7"},
+                            {label: "8", value: "8"},
+                            {label: "9", value: "9"},
+                            {label: "10", value: "10"},
+                            {label: "11", value: "11"},
+                            {label: "12", value: "12"},
+                            {label: "13", value: "13"},
+                            {label: "14", value: "14"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    <Text style={styles.potInfo}>Pot Height (cm)</Text>
+                    <DropDownPicker
+                        defaultValue={this.state.settings["plant_1"]["height"]}
+                        items={[
+                            {label: "6", value: "6"},
+                            {label: "7", value: "7"},
+                            {label: "8", value: "8"},
+                            {label: "6", value: "9"},
+                            {label: "7", value: "10"},
+                            {label: "8", value: "11"},
+                            {label: "6", value: "12"},
+                            {label: "7", value: "13"},
+                            {label: "8", value: "14"}
+                        ]}
+                        containerStyle={{height: 40, width: 300}}
+                        style={{backgroundColor: '#fafafa'}}
+                        itemStyle={{
+                            justifyContent: 'space-between'
+                        }}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}
+                    />
+                    </View>
+                </ScrollView>
+            );
+        }
+        else {
+            return null
+        }
     }
 }
 
