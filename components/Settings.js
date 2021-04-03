@@ -24,11 +24,15 @@ class Settings extends Component {
         });
     }
 
-    updateFirebaseField(path, val) {
-        // console.log(path)
-        // console.log(val)
+    updatePlant(path, val) {
         db.ref(path).update({
             plant: val
+        })
+    }
+
+    updateAge(path, val) {
+        db.ref(path).update({
+            age: val
         })
     }
 
@@ -44,8 +48,10 @@ class Settings extends Component {
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["plant"]}
-                        items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
-                        controller={instance => this.controller = instance}
+                        items={[
+                            {label: "vines", value: "vines"}, 
+                            {label: "leaves", value: "leaves"}
+                        ]}
                         onChangeItem={plant => {
                             this.setState(prevState => ({
                                 settings: {
@@ -55,7 +61,7 @@ class Settings extends Component {
                                         "plant": plant["value"]
                                     }
                                 }
-                            }), this.updateFirebaseField.bind(this, "/settings/plant_0", plant["value"]))
+                            }), this.updatePlant.bind(this, "/settings/plant_0", plant["value"]))
                         }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
@@ -65,17 +71,24 @@ class Settings extends Component {
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
                     
-                    <Text style={styles.potInfo}>Soil Type</Text>
+                    <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["soil"]}
+                        defaultValue={this.state.settings["plant_0"]["age"]}
                         items={[
-                            {label: "sandy", value: "sandy"},
-                            {label: "chalk", value: "chalk"},
-                            {label: "clay", value: "clay"},
-                            {label: "loam", value: "loam"},
-                            {label: "silt", value: "silt"},
-                            {label: "peat", value: "peat"}
+                            {label: "sapling", value: "sapling"},
+                            {label: "plant", value: "plant"},
                         ]}
+                        onChangeItem={age => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "age": age["value"]
+                                    }
+                                }
+                            }), this.updateAge.bind(this, "/settings/plant_0", age["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
