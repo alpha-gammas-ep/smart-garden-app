@@ -24,11 +24,12 @@ class Settings extends Component {
         });
     }
 
-    updateField(path, val) {
-        // console.log("sheeeeeeesh")
-        // console.log(this.state.settings["plant_0"]["plant"])
-        console.log(path)
-        console.log(val)
+    updateFirebaseField(path, val) {
+        // console.log(path)
+        // console.log(val)
+        db.ref(path).update({
+            plant: val
+        })
     }
 
     render () {
@@ -54,7 +55,7 @@ class Settings extends Component {
                                         "plant": plant["value"]
                                     }
                                 }
-                            }), this.updateField.bind(this, "hello", plant["value"]))
+                            }), this.updateFirebaseField.bind(this, "/settings/plant_0", plant["value"]))
                         }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
