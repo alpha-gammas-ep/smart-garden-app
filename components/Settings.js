@@ -36,6 +36,12 @@ class Settings extends Component {
         })
     }
 
+    updateDiameter(path, val) {
+        db.ref(path).update({
+            diameter: val
+        })
+    }
+
     render () {
         if (!this.state.loading) {
             return (
@@ -110,6 +116,17 @@ class Settings extends Component {
                             {label: "13", value: "13"},
                             {label: "14", value: "14"}
                         ]}
+                        onChangeItem={diameter => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "diameter": diameter["value"]
+                                    }
+                                }
+                            }), this.updateDiameter.bind(this, "/settings/plant_0", diameter["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
