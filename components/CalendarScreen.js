@@ -1,6 +1,9 @@
 import React from 'react';
 import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {db} from '../config';
+
+let plantsRef = db.ref('/plants');
 
 const styles = StyleSheet.create({
     container: {
