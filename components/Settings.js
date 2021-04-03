@@ -10,6 +10,7 @@ class Settings extends Component {
             settings: {},
             loading: true
         }
+        this.controller;
     }
     componentDidMount() {
         this.setState({ loading: true })
@@ -22,6 +23,14 @@ class Settings extends Component {
             });
         });
     }
+
+    updateField(path, val) {
+        // console.log("sheeeeeeesh")
+        // console.log(this.state.settings["plant_0"]["plant"])
+        console.log(path)
+        console.log(val)
+    }
+
     render () {
         if (!this.state.loading) {
             return (
@@ -35,6 +44,18 @@ class Settings extends Component {
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["plant"]}
                         items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
+                        controller={instance => this.controller = instance}
+                        onChangeItem={plant => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "plant": plant["value"]
+                                    }
+                                }
+                            }), this.updateField.bind(this, "hello", plant["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
