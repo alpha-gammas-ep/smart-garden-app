@@ -6,7 +6,7 @@ import {db} from '../config';
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             settings: {},
             loading: true
         }
@@ -19,6 +19,7 @@ class Settings extends Component {
             this.setState({
                 settings: settings,
                 loading: false
+
             });
         });
     }
@@ -32,6 +33,13 @@ class Settings extends Component {
                     <View style={styles.potContainer}>
                     <Text style={styles.potText}>Pot 1 and 2</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:999, height:40
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["plant"]}
                         items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
@@ -42,8 +50,17 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
-                    
+                    </View>
+
+
                     <Text style={styles.potInfo}>Soil Type</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:9999
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["soil"]}
                         items={[
@@ -61,7 +78,16 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
+
                     <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:999
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["diameter"]}
                         items={[
@@ -82,7 +108,16 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
+
                     <Text style={styles.potInfo}>Pot Height</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:99
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["height"]}
                         items={[
@@ -104,10 +139,19 @@ class Settings extends Component {
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
                     </View>
-        
+
+                    </View>
+
                     <View style={styles.potContainer}>
                     <Text style={styles.potText}>Pot 3 and 4</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:9999
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["plant"]}
                         items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
@@ -118,7 +162,16 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
+
                     <Text style={styles.potInfo}>Soil Type</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:9999
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["soil"]}
                         items={[
@@ -136,7 +189,16 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
+
                     <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:999
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["diameter"]}
                         items={[
@@ -157,7 +219,16 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
+
                     <Text style={styles.potInfo}>Pot Height (cm)</Text>
+                    <View
+                      style={{
+                        ...(Platform.OS !== 'android' && {
+                          zIndex:99
+                        })
+                      }}
+                      >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["height"]}
                         items={[
@@ -178,6 +249,7 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+                    </View>
                     </View>
                 </ScrollView>
             );
