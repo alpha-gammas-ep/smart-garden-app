@@ -22,9 +22,8 @@ class Settings extends Component {
             let settings = {...data};
             let lst = []
             for (key in settings["plant_watering_frequency"]) {
-                lst.push({label: key, value: key})
+                lst.push({label: key.replace(/_/g, " "), value: key})
             }
-            console.log(lst)
             this.setState({
                 plant_0_settings: settings["plant_0"],
                 plant_1_settings: settings["plant_1"],
