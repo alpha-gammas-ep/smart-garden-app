@@ -7,7 +7,9 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            settings: {},
+            plant_0_settings: {},
+            plant_1_settings: {},
+            plant_types: [],
             loading: true
         }
         this.controller;
@@ -18,7 +20,9 @@ class Settings extends Component {
             let data = snapshot.val() ? snapshot.val() : {};
             let settings = {...data};
             this.setState({
-                settings: settings,
+                plant_0_settings: settings["plant_0"],
+                plant_1_settings: settings["plant_1"],
+                plant_types: [settings["plant_watering_frequency"]],
                 loading: false
             });
         });
@@ -59,19 +63,16 @@ class Settings extends Component {
                     <Text style={styles.potText}>Pot 1 and 2</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["plant"]}
+                        defaultValue={this.state.plant_0_settings["plant"]}
                         items={[
                             {label: "vines", value: "vines"}, 
                             {label: "leaves", value: "leaves"}
                         ]}
                         onChangeItem={plant => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_0": {
-                                        ...prevState.settings["plant_0"],
-                                        "plant": plant["value"]
-                                    }
+                                plant_0_settings: {
+                                    ...prevState.plant_0_settings,
+                                    "plant": plant["value"]
                                 }
                             }), this.updatePlant.bind(this, "/settings/plant_0", plant["value"]))
                         }}
@@ -85,19 +86,16 @@ class Settings extends Component {
                     
                     <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["age"]}
+                        defaultValue={this.state.plant_0_settings["age"]}
                         items={[
                             {label: "sapling", value: "sapling"},
                             {label: "plant", value: "plant"},
                         ]}
                         onChangeItem={age => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_0": {
-                                        ...prevState.settings["plant_0"],
-                                        "age": age["value"]
-                                    }
+                                "plant_0_settings": {
+                                    ...prevState.plant_0_settings,
+                                    "age": age["value"]
                                 }
                             }), this.updateAge.bind(this, "/settings/plant_0", age["value"]))
                         }}
@@ -110,7 +108,7 @@ class Settings extends Component {
                     />
                     <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["diameter"]}
+                        defaultValue={this.state.plant_0_settings["diameter"]}
                         items={[
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
@@ -124,12 +122,9 @@ class Settings extends Component {
                         ]}
                         onChangeItem={diameter => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_0": {
-                                        ...prevState.settings["plant_0"],
-                                        "diameter": diameter["value"]
-                                    }
+                                "plant_0_settings": {
+                                    ...prevState.plant_0_settings,
+                                    "diameter": diameter["value"]
                                 }
                             }), this.updateDiameter.bind(this, "/settings/plant_0", diameter["value"]))
                         }}
@@ -142,7 +137,7 @@ class Settings extends Component {
                     />
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["height"]}
+                        defaultValue={this.state.plant_0_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
@@ -156,12 +151,9 @@ class Settings extends Component {
                         ]}
                         onChangeItem={height => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_0": {
-                                        ...prevState.settings["plant_0"],
-                                        "height": height["value"]
-                                    }
+                                "plant_0_settings": {
+                                    ...prevState.plant_0_settings,
+                                    "height": height["value"]
                                 }
                             }), this.updateHeight.bind(this, "/settings/plant_0", height["value"]))
                         }}
@@ -178,19 +170,16 @@ class Settings extends Component {
                     <Text style={styles.potText}>Pot 3 and 4</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["plant"]}
+                        defaultValue={this.state.plant_1_settings["plant"]}
                         items={[
                             {label: "vines", value: "vines"}, 
                             {label: "leaves", value: "leaves"}
                         ]}
                         onChangeItem={plant => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_1": {
-                                        ...prevState.settings["plant_1"],
-                                        "plant": plant["value"]
-                                    }
+                                plant_1_settings: {
+                                    ...prevState.plant_1_settings,
+                                    "plant": plant["value"]
                                 }
                             }), this.updatePlant.bind(this, "/settings/plant_1", plant["value"]))
                         }}
@@ -204,19 +193,16 @@ class Settings extends Component {
                     
                     <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["age"]}
+                        defaultValue={this.state.plant_1_settings["age"]}
                         items={[
                             {label: "sapling", value: "sapling"},
                             {label: "plant", value: "plant"},
                         ]}
                         onChangeItem={age => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_1": {
-                                        ...prevState.settings["plant_1"],
-                                        "age": age["value"]
-                                    }
+                                "plant_1_settings": {
+                                    ...prevState.plant_1_settings,
+                                    "age": age["value"]
                                 }
                             }), this.updateAge.bind(this, "/settings/plant_1", age["value"]))
                         }}
@@ -229,7 +215,7 @@ class Settings extends Component {
                     />
                     <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["diameter"]}
+                        defaultValue={this.state.plant_1_settings["diameter"]}
                         items={[
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
@@ -243,12 +229,9 @@ class Settings extends Component {
                         ]}
                         onChangeItem={diameter => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_1": {
-                                        ...prevState.settings["plant_1"],
-                                        "diameter": diameter["value"]
-                                    }
+                                "plant_1_settings": {
+                                    ...prevState.plant_1_settings,
+                                    "diameter": diameter["value"]
                                 }
                             }), this.updateDiameter.bind(this, "/settings/plant_1", diameter["value"]))
                         }}
@@ -261,7 +244,7 @@ class Settings extends Component {
                     />
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["height"]}
+                        defaultValue={this.state.plant_1_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
@@ -275,12 +258,9 @@ class Settings extends Component {
                         ]}
                         onChangeItem={height => {
                             this.setState(prevState => ({
-                                settings: {
-                                    ...prevState.settings,
-                                    "plant_1": {
-                                        ...prevState.settings["plant_1"],
-                                        "height": height["value"]
-                                    }
+                                "plant_0_settings": {
+                                    ...prevState.plant_1_settings,
+                                    "height": height["value"]
                                 }
                             }), this.updateHeight.bind(this, "/settings/plant_1", height["value"]))
                         }}
