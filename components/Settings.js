@@ -9,7 +9,8 @@ class Settings extends Component {
         this.state = { 
             plant_0_settings: {},
             plant_1_settings: {},
-            plant_types: [],
+            plant_types: {},
+            lst_plant_types: [],
             loading: true
         }
         this.controller;
@@ -19,10 +20,16 @@ class Settings extends Component {
         db.ref('/settings').on('value', snapshot => {
             let data = snapshot.val() ? snapshot.val() : {};
             let settings = {...data};
+            let lst = []
+            for (key in settings["plant_watering_frequency"]) {
+                lst.push({label: key, value: key})
+            }
+            console.log(lst)
             this.setState({
                 plant_0_settings: settings["plant_0"],
                 plant_1_settings: settings["plant_1"],
-                plant_types: [settings["plant_watering_frequency"]],
+                plant_types: settings["plant_watering_frequency"],
+                lst_plant_types: lst,
                 loading: false
             });
         });
@@ -64,11 +71,9 @@ class Settings extends Component {
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_0_settings["plant"]}
-                        items={[
-                            {label: "vines", value: "vines"}, 
-                            {label: "leaves", value: "leaves"}
-                        ]}
+                        items={this.state.lst_plant_types}
                         onChangeItem={plant => {
+                            console.log(this.state)
                             this.setState(prevState => ({
                                 plant_0_settings: {
                                     ...prevState.plant_0_settings,
@@ -171,10 +176,7 @@ class Settings extends Component {
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["plant"]}
-                        items={[
-                            {label: "vines", value: "vines"}, 
-                            {label: "leaves", value: "leaves"}
-                        ]}
+                        items={this.state.lst_plant_types}
                         onChangeItem={plant => {
                             this.setState(prevState => ({
                                 plant_1_settings: {
