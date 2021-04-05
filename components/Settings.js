@@ -67,6 +67,12 @@ class Settings extends Component {
         })
     }
 
+    updateVolume(diameter, height, path) {
+        db.ref(path).update({
+            water_volume: ((diameter/2)**2 * Math.PI * height).toString()
+        })
+    }
+
     updatePlant(path, plant_name) {
         db.ref(path).update({
             plant: plant_name
@@ -91,16 +97,28 @@ class Settings extends Component {
         }
     }
 
-    updateDiameter(path, val) {
+    updateDiameter(path, diameter) {
         db.ref(path).update({
-            diameter: val
+            diameter: diameter
         })
+        if (path == "/settings/plant_0") {
+            this.updateVolume(diameter, this.state.plant_0_settings["height"], "/plants/plant_0")
+        }
+        else {
+            this.updateVolume(diameter, this.state.plant_1_settings["height"], "/plants/plant_1")
+        }
     }
 
-    updateHeight(path, val) {
+    updateHeight(path, height) {
         db.ref(path).update({
-            height: val
+            height: height
         })
+        if (path == "/settings/plant_0") {
+            this.updateVolume(this.state.plant_0_settings["diameter"], height, "/plants/plant_0")
+        }
+        else {
+            this.updateVolumen(this.state.plant_1_settings["diameter"], height, "/plants/plant_1")
+        }
     }
 
     render () {
