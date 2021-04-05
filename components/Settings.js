@@ -132,6 +132,8 @@ class Settings extends Component {
                     <Text style={styles.potText}>Pot 1 and 2</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
+                        searchable={true}
+                        searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_0_settings["plant"]}
                         items={this.state.lst_plant_types}
                         onChangeItem={plant => {
@@ -236,6 +238,8 @@ class Settings extends Component {
                     <Text style={styles.potText}>Pot 3 and 4</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <DropDownPicker
+                        searchable={true}
+                        searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_1_settings["plant"]}
                         items={this.state.lst_plant_types}
                         onChangeItem={plant => {
