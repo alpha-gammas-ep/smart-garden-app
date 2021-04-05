@@ -16,7 +16,6 @@ class Settings extends Component {
         this.controller;
     }
     componentDidMount() {
-        this.setState({ loading: true })
         db.ref('/settings').on('value', snapshot => {
             let data = snapshot.val() ? snapshot.val() : {};
             let settings = {...data};
@@ -34,16 +33,58 @@ class Settings extends Component {
         });
     }
 
-    updatePlant(path, val) {
-        db.ref(path).update({
-            plant: val
+    getFrequency(age, plant_name) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                if (age == "plant") {
+                    switch(this.state.plant_types[plant_name]) {
+                        case "very low":
+                            resolve("1209600000")
+                        case "low":
+                            resolve("604800000")
+                        case "moderate":
+                            resolve("302400000")
+                    }
+                }
+                else if (age == "sapling") { // age == "sapling"
+                    switch(this.state.plant_types[plant_name]) {
+                        case "very low":
+                            resolve("604800000")
+                        case "low":
+                            resolve("302400000")
+                        case "moderate":
+                            resolve("151200000")
+                    }
+                }
+            }, 1000)
         })
+    }
+    
+    async updateFrequency(age, plant_name, path) {
+        let freq = await this.getFrequency(age, plant_name)
+        db.ref(path).update({
+            water_interval: freq
+        })
+    }
+
+    updatePlant(path, plant_name) {
+        db.ref(path).update({
+            plant: plant_name
+        })
+        if (path == "/settings/plant_0") {
+            this.updateFrequency(this.state.plant_0_settings["age"], plant_name, "/plants/plant_0");
+        }
+        else { // path == "/settings/plant_1"
+            this.updateFrequency(this.state.plant_1_settings["age"], plant_name, "/plants/plant_1");
+        }
     }
 
     updateAge(path, val) {
         db.ref(path).update({
             age: val
         })
+        console.log("update frequency - plant age change")
+        console.log(this.state.plant_types)
     }
 
     updateDiameter(path, val) {
@@ -72,7 +113,6 @@ class Settings extends Component {
                         defaultValue={this.state.plant_0_settings["plant"]}
                         items={this.state.lst_plant_types}
                         onChangeItem={plant => {
-                            console.log(this.state)
                             this.setState(prevState => ({
                                 plant_0_settings: {
                                     ...prevState.plant_0_settings,
