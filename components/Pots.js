@@ -1,21 +1,49 @@
 import React, { Component } from "react";
 import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { Alert, Modal, Pressable } from "react-native";
+import Carousel from 'react-native-snap-carousel';
 
+export class MyCarousel extends Component {
+
+    _renderItem = ({item, index}) => {
+        return (
+            <View style={styles.slide}>
+                <Text style={styles.title}>{ item.title }</Text>
+            </View>
+        );
+    }
+
+    render () {
+        return (
+            <Carousel
+              ref={(c) => { this._carousel = c; }}
+              renderItem={this._renderItem}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+            />
+        );
+    }
+}
 class Pots extends Component {
     state = {
+        index:0,
         modalVisible: false,
         plants: [{
             id: 0,
-            name: 'Sunflower', 
+            name: 'Sunflower',
             heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-        }, 
+        },
         {
             id: 2,
             name: 'Mayflower',
             heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
         }]
     };
+
+    constructor(props) {
+      super(props);
+      this._renderItem = this._renderItem.bind(this)
+    }
 
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
@@ -36,6 +64,14 @@ class Pots extends Component {
                     }}
                     >
                     <View style={styles.centeredView}>
+                    <Carousel
+                      layout={"default"}
+                      ref={ref => this.carousel = ref}
+                      data={this.state.carouselItems}
+                      sliderWidth={300}
+                      itemWidth={300}
+                      renderItem={this._renderItem}
+                      onSnapToItem = { index => this.setState({activeIndex:index}) } />
                         <View style={styles.modalView}>
                         <Text style={styles.modalText}>Hello World!</Text>
                         <Pressable
@@ -56,7 +92,7 @@ class Pots extends Component {
                         </Text>
                     </Text>
                 </View>
-                {this.state.plants.map((plantInfo) => 
+                {this.state.plants.map((plantInfo) =>
                     <TouchableOpacity
                         key={plantInfo.id}
                         onPress={() => this.setModalVisible(true)}
@@ -65,7 +101,7 @@ class Pots extends Component {
                     >
                         <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plantInfo.id+1} and {plantInfo.id+2}</Text>
                         <View style={{alignItems: 'center'}}>
-                            <Image 
+                            <Image
                                 source={require('../assets/pot-icon.png')}
                                 style={{width: 175, height: 175}}
                                 resizeMode='contain'
@@ -153,7 +189,27 @@ const styles = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center"
+      ,
+      carouselContainer: {
+        marginTop: 50
+      },
+      itemContainer: {
+        width: ITEM_WIDTH,
+        height: ITEM_HEIGHT,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'dodgerblue'
+      },
+      itemLabel: {
+        color: 'white',
+        fontSize: 24
+      },
+      counter: {
+        marginTop: 25,
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center'
       }
-})
+}})
 
 export default Pots;
