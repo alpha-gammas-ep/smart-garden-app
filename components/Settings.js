@@ -10,6 +10,7 @@ class Settings extends Component {
             settings: {},
             loading: true
         }
+        this.controller;
     }
     componentDidMount() {
         this.setState({ loading: true })
@@ -23,6 +24,31 @@ class Settings extends Component {
             });
         });
     }
+
+    updatePlant(path, val) {
+        db.ref(path).update({
+            plant: val
+        })
+    }
+
+    updateAge(path, val) {
+        db.ref(path).update({
+            age: val
+        })
+    }
+
+    updateDiameter(path, val) {
+        db.ref(path).update({
+            diameter: val
+        })
+    }
+
+    updateHeight(path, val) {
+        db.ref(path).update({
+            height: val
+        })
+    }
+
     render () {
         if (!this.state.loading) {
             return (
@@ -42,7 +68,21 @@ class Settings extends Component {
                       >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_0"]["plant"]}
-                        items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
+                        items={[
+                            {label: "vines", value: "vines"},
+                            {label: "leaves", value: "leaves"}
+                        ]}
+                        onChangeItem={plant => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "plant": plant["value"]
+                                    }
+                                }
+                            }), this.updatePlant.bind(this, "/settings/plant_0", plant["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -62,15 +102,22 @@ class Settings extends Component {
                       }}
                       >
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["soil"]}
+                        defaultValue={this.state.settings["plant_0"]["age"]}
                         items={[
-                            {label: "sandy", value: "sandy"},
-                            {label: "chalk", value: "chalk"},
-                            {label: "clay", value: "clay"},
-                            {label: "loam", value: "loam"},
-                            {label: "silt", value: "silt"},
-                            {label: "peat", value: "peat"}
+                            {label: "sapling", value: "sapling"},
+                            {label: "plant", value: "plant"},
                         ]}
+                        onChangeItem={age => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "age": age["value"]
+                                    }
+                                }
+                            }), this.updateAge.bind(this, "/settings/plant_0", age["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -101,6 +148,17 @@ class Settings extends Component {
                             {label: "13", value: "13"},
                             {label: "14", value: "14"}
                         ]}
+                        onChangeItem={diameter => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "diameter": diameter["value"]
+                                    }
+                                }
+                            }), this.updateDiameter.bind(this, "/settings/plant_0", diameter["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -124,13 +182,24 @@ class Settings extends Component {
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
                             {label: "8", value: "8"},
-                            {label: "6", value: "9"},
-                            {label: "7", value: "10"},
-                            {label: "8", value: "11"},
-                            {label: "6", value: "12"},
-                            {label: "7", value: "13"},
-                            {label: "8", value: "14"}
+                            {label: "9", value: "9"},
+                            {label: "10", value: "10"},
+                            {label: "11", value: "11"},
+                            {label: "12", value: "12"},
+                            {label: "13", value: "13"},
+                            {label: "14", value: "14"}
                         ]}
+                        onChangeItem={height => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_0": {
+                                        ...prevState.settings["plant_0"],
+                                        "height": height["value"]
+                                    }
+                                }
+                            }), this.updateHeight.bind(this, "/settings/plant_0", height["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -154,7 +223,21 @@ class Settings extends Component {
                       >
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["plant"]}
-                        items={[{label: "vines", value: "vines"}, {label: "leaves", value: "leaves"}]}
+                        items={[
+                            {label: "vines", value: "vines"},
+                            {label: "leaves", value: "leaves"}
+                        ]}
+                        onChangeItem={plant => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_1": {
+                                        ...prevState.settings["plant_1"],
+                                        "plant": plant["value"]
+                                    }
+                                }
+                            }), this.updatePlant.bind(this, "/settings/plant_1", plant["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -162,6 +245,7 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+<<<<<<< HEAD
                     </View>
 
                     <Text style={styles.potInfo}>Soil Type</Text>
@@ -172,16 +256,27 @@ class Settings extends Component {
                         })
                       }}
                       >
+=======
+
+                    <Text style={styles.potInfo}>Age</Text>
+>>>>>>> c8b821aa088418d62b0101cdf9e1e513b89219b5
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["soil"]}
+                        defaultValue={this.state.settings["plant_1"]["age"]}
                         items={[
-                            {label: "sandy", value: "sandy"},
-                            {label: "chalk", value: "chalk"},
-                            {label: "clay", value: "clay"},
-                            {label: "loam", value: "loam"},
-                            {label: "silt", value: "silt"},
-                            {label: "peat", value: "peat"}
+                            {label: "sapling", value: "sapling"},
+                            {label: "plant", value: "plant"},
                         ]}
+                        onChangeItem={age => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_1": {
+                                        ...prevState.settings["plant_1"],
+                                        "age": age["value"]
+                                    }
+                                }
+                            }), this.updateAge.bind(this, "/settings/plant_1", age["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -212,6 +307,17 @@ class Settings extends Component {
                             {label: "13", value: "13"},
                             {label: "14", value: "14"}
                         ]}
+                        onChangeItem={diameter => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_1": {
+                                        ...prevState.settings["plant_1"],
+                                        "diameter": diameter["value"]
+                                    }
+                                }
+                            }), this.updateDiameter.bind(this, "/settings/plant_1", diameter["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
@@ -219,6 +325,7 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
+<<<<<<< HEAD
                     </View>
 
                     <Text style={styles.potInfo}>Pot Height (cm)</Text>
@@ -229,19 +336,33 @@ class Settings extends Component {
                         })
                       }}
                       >
+=======
+                    <Text style={styles.potInfo}>Pot Height</Text>
+>>>>>>> c8b821aa088418d62b0101cdf9e1e513b89219b5
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["height"]}
                         items={[
                             {label: "6", value: "6"},
                             {label: "7", value: "7"},
                             {label: "8", value: "8"},
-                            {label: "6", value: "9"},
-                            {label: "7", value: "10"},
-                            {label: "8", value: "11"},
-                            {label: "6", value: "12"},
-                            {label: "7", value: "13"},
-                            {label: "8", value: "14"}
+                            {label: "9", value: "9"},
+                            {label: "10", value: "10"},
+                            {label: "11", value: "11"},
+                            {label: "12", value: "12"},
+                            {label: "13", value: "13"},
+                            {label: "14", value: "14"}
                         ]}
+                        onChangeItem={height => {
+                            this.setState(prevState => ({
+                                settings: {
+                                    ...prevState.settings,
+                                    "plant_1": {
+                                        ...prevState.settings["plant_1"],
+                                        "height": height["value"]
+                                    }
+                                }
+                            }), this.updateHeight.bind(this, "/settings/plant_1", height["value"]))
+                        }}
                         containerStyle={{height: 40, width: 300}}
                         style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
