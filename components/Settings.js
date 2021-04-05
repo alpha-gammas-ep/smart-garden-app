@@ -79,12 +79,16 @@ class Settings extends Component {
         }
     }
 
-    updateAge(path, val) {
+    updateAge(path, age) {
         db.ref(path).update({
-            age: val
+            age: age
         })
-        console.log("update frequency - plant age change")
-        console.log(this.state.plant_types)
+        if (path == "/settings/plant_0") {
+            this.updateFrequency(age, this.state.plant_0_settings["plant"], "/plants/plant_0");
+        }
+        else { // path == "/settings/plant_1"
+            this.updateFrequency(age, this.state.plant_1_settings["plant"], "/plants/plant_1");
+        }
     }
 
     updateDiameter(path, val) {
