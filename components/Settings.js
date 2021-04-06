@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
         alignSelf: "stretch",
     },
     potContainer: {
-        height: 550,
+        height: 650,
         marginTop: 10,
         marginBottom: 30,
         padding: 20,
