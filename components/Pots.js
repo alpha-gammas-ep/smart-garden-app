@@ -24,6 +24,13 @@ class Pots extends Component {
             {
                 title:"Item 5",
             },
+            {
+                title:"Item 6",
+            },
+            {
+                title:"Item 7",
+            },
+
           ],
         modalVisible: false,
         plants: [{
