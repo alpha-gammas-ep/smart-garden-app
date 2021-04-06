@@ -10,14 +10,12 @@ class Home extends Component {
             waters: [
             {
                 id: 1,
-                date: 'March 7, 2021',
-                time: '5:00 PM',
+                last_watered: 'March 7, 2021',
                 plant: 'Spinach'
             },
             {
                 id: 2,
-                date: 'March 9, 2021',
-                time: '3:00 PM',
+                last_watered: 'March 9, 2021',
                 plant: 'Cauliflower'
             }]
         }
@@ -26,8 +24,21 @@ class Home extends Component {
     componentDidMount() {
         db.ref("/").on("value", snapshot => {
             let data = snapshot.val() ? snapshot.val() : {};
-            let settings = {...data};
-            console.log(settings)
+            let info = {...data};
+            this.setState({
+                waters: [
+                    {
+                        id: 1,
+                        last_watered: info["plants"]["plant_0"]["last_watered"],
+                        plant: info["settings"]["plant_0"]["plant"]
+                    },
+                    {
+                        id: 2,
+                        last_watered: info["plants"]["plant_1"]["last_watered"],
+                        plant: info["settings"]["plant_1"]["plant"]
+                    }
+                ]
+            })
         })
     }
 
@@ -49,7 +60,7 @@ class Home extends Component {
                         <View key={wateringInfo.id} style={styles.waterNotif}>
                             <View style={{display: 'flex', flexDirection: 'row'}}>
                                 <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>
-                                    {wateringInfo.date}
+                                    {wateringInfo.last_watered}
                                 </Text>
                                 <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', paddingTop: 15}}>
                                     Watering{'\n'}
