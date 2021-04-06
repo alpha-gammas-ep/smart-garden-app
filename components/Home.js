@@ -70,9 +70,13 @@ class Home extends Component {
                                             {this.getTime(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}
                                         </Text>
                                     </Text>
-                                    <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', padding: 20}}>
-                                        Watering{'\n'}
-                                        {wateringInfo.plant}
+                                    <Text style={{flex: 1, padding: 20}}>
+                                        <Text style={{fontSize: 20, fontWeight: "bold"}}>
+                                            Watering{'\n'}
+                                        </Text>
+                                        <Text style={{fontSize: 18, color: "#666666"}}>
+                                            {wateringInfo.plant.replace(/_/g, " ")}
+                                        </Text>
                                     </Text>
                                 </View>
                             </View>
