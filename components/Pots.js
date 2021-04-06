@@ -3,8 +3,8 @@ import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Saf
 import { Alert, Modal, Pressable } from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-class Pots extends Component {
 
+class Pots extends Component {
     state = {
         index:0,
         activeIndex:0,
@@ -33,6 +33,30 @@ class Pots extends Component {
 
           ],
         modalVisible: false,
+        activeIndex:0,
+          carouselItems: [
+          {
+              title:"Item 1",
+          },
+          {
+              title:"Item 2",
+          },
+          {
+              title:"Item 3",
+          },
+          {
+              title:"Item 4",
+          },
+          {
+              title:"Item 5",
+          },
+          {
+              title:"Item 6",
+          },
+          {
+              title:"Item 7",
+          },
+        ],
         plants: [{
             id: 0,
             name: 'Sunflower',
@@ -65,6 +89,22 @@ class Pots extends Component {
         this.setState({ modalVisible: visible });
     }
 
+    _renderItem({item,index}){
+        return (
+          <View style={{
+              backgroundColor:'floralwhite',
+              borderRadius: 5,
+              height: 250,
+              padding: 50,
+              marginLeft: 25,
+              marginRight: 25, }}>
+            <Text style={{fontSize: 30}}>{item.title}</Text>
+            <Text>{item.text}</Text>
+          </View>
+
+        )
+    }
+
     render() {
         const {modalVisible} = this.state;
         return (
@@ -81,17 +121,17 @@ class Pots extends Component {
                     >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                        <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 50 }}>
-                          <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
-                              <Carousel
-                                layout={"default"}
-                                ref={ref => this.carousel = ref}
-                                data={this.state.carouselItems}
-                                sliderWidth={300}
-                                itemWidth={300}
-                                renderItem={this._renderItem}
-                                onSnapToItem = { index => this.setState({activeIndex:index}) } />
-                          </View>
+                        <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 50, }}>
+                        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+                            <Carousel
+                              layout={"default"}
+                              ref={ref => this.carousel = ref}
+                              data={this.state.carouselItems}
+                              sliderWidth={300}
+                              itemWidth={300}
+                              renderItem={this._renderItem}
+                              onSnapToItem = { index => this.setState({activeIndex:index}) } />
+                        </View>
                         </SafeAreaView>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -187,8 +227,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        height: 400,
-        elevation: 5
+        elevation: 5,
+        height: 400
       },
       button: {
         borderRadius: 20,
@@ -209,7 +249,6 @@ const styles = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center"
-
 }})
 
 export default Pots;
