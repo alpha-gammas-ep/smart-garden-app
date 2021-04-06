@@ -245,7 +245,6 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
-<<<<<<< HEAD
                     </View>
 
                     <Text style={styles.potInfo}>Soil Type</Text>
@@ -256,10 +255,7 @@ class Settings extends Component {
                         })
                       }}
                       >
-=======
-
                     <Text style={styles.potInfo}>Age</Text>
->>>>>>> c8b821aa088418d62b0101cdf9e1e513b89219b5
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["age"]}
                         items={[
@@ -325,7 +321,6 @@ class Settings extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
-<<<<<<< HEAD
                     </View>
 
                     <Text style={styles.potInfo}>Pot Height (cm)</Text>
@@ -336,9 +331,7 @@ class Settings extends Component {
                         })
                       }}
                       >
-=======
                     <Text style={styles.potInfo}>Pot Height</Text>
->>>>>>> c8b821aa088418d62b0101cdf9e1e513b89219b5
                     <DropDownPicker
                         defaultValue={this.state.settings["plant_1"]["height"]}
                         items={[
