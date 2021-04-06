@@ -238,7 +238,7 @@ class Statistics extends Component {
                             />
                             <ImageBackground source={require('../assets/blue-circle.png')} style={{flex: 1, width: 125, height: 125, resizeMode: 'center'}}>
                                 <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingRight: 50}}>
+                                    <Text style={this.getPercentVolume() == 0 ? styles.numberTextRed : styles.numberText}>
                                         {this.getPercentVolume()}%
                                     </Text>
                                 </View>
@@ -279,7 +279,7 @@ class Statistics extends Component {
                             />
                             <ImageBackground source={require('../assets/green-circle.png')} style={{flex: 1, width: 125, height: 125, resizeMode: 'center'}}>
                                 <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingRight: 50}}>
+                                    <Text style={this.getDaysLeft0() == 0 ? styles.numberTextRed : styles.numberText}>
                                         {this.getDaysLeft0()} Days
                                     </Text>
                                 </View>
@@ -320,7 +320,7 @@ class Statistics extends Component {
                             />
                             <ImageBackground source={require('../assets/green-circle.png')} style={{flex: 1, width: 125, height: 125, resizeMode: 'center'}}>
                                 <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingRight: 50}}>
+                                    <Text style={this.getDaysLeft1() == 0 ? styles.numberTextRed : styles.numberText}>
                                         {this.getDaysLeft1()} Days
                                     </Text>
                                 </View>
@@ -434,6 +434,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color:'#ffffff'
     },
+    numberText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        paddingRight: 50
+    },
+    numberTextRed: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        paddingRight: 50,
+        color: '#ff0000'
+    }
 })
 
 export default Statistics;
