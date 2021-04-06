@@ -13,7 +13,6 @@ class Settings extends Component {
             lst_plant_types: [],
             loading: true
         }
-        this.controller;
     }
     componentDidMount() {
         db.ref('/settings').on('value', snapshot => {
@@ -29,7 +28,6 @@ class Settings extends Component {
                 plant_types: settings["plant_watering_frequency"],
                 lst_plant_types: lst,
                 loading: false
-
             });
         });
     }
@@ -135,16 +133,11 @@ class Settings extends Component {
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
-                          zIndex:999, height:40
+                          zIndex:99999, height:40
                         })
                       }}
                       >
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_0"]["plant"]}
-                        items={[
-                            {label: "vines", value: "vines"},
-                            {label: "leaves", value: "leaves"}
-                        ]}
                         searchable={true}
                         searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_0_settings["plant"]}
@@ -166,8 +159,6 @@ class Settings extends Component {
                     />
                     </View>
 
-
-                    <Text style={styles.potInfo}>Soil Type</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -175,6 +166,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_0_settings["age"]}
                         items={[
@@ -198,7 +190,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -206,6 +197,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_0_settings["diameter"]}
                         items={[
@@ -236,15 +228,17 @@ class Settings extends Component {
                     />
                     </View>
 
+
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <View
-                      style={{
-                        ...(Platform.OS !== 'android' && {
-                          zIndex:99
-                        })
-                      }}
-                      >
+                     style={{
+                       ...(Platform.OS !== 'android' && {
+                         zIndex:99
+                       })
+                     }}
+                     >
                     <DropDownPicker
+                        dropDownMaxHeight={55}
                         defaultValue={this.state.plant_0_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -282,16 +276,11 @@ class Settings extends Component {
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
-                          zIndex:9999
+                          zIndex:99999
                         })
                       }}
                       >
                     <DropDownPicker
-                        defaultValue={this.state.settings["plant_1"]["plant"]}
-                        items={[
-                            {label: "vines", value: "vines"},
-                            {label: "leaves", value: "leaves"}
-                        ]}
                         searchable={true}
                         searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_1_settings["plant"]}
@@ -313,7 +302,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Soil Type</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -322,9 +310,6 @@ class Settings extends Component {
                       }}
                       >
                     <Text style={styles.potInfo}>Age</Text>
-
-                    <Text style={styles.potInfo}>Age</Text>
-
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["age"]}
                         items={[
@@ -345,10 +330,10 @@ class Settings extends Component {
                             justifyContent: 'space-between'
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
+
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -356,6 +341,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["diameter"]}
                         items={[
@@ -386,7 +372,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Height (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -396,6 +381,7 @@ class Settings extends Component {
                       >
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <DropDownPicker
+                        dropDownMaxHeight={55}
                         defaultValue={this.state.plant_1_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -424,6 +410,7 @@ class Settings extends Component {
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
                     </View>
+
                     </View>
                 </ScrollView>
             );
