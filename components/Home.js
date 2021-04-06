@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Calendar} from 'react-native-calendars';
+import {db} from "../config";
 
 class Home extends Component {
     constructor(props) {
@@ -21,6 +22,15 @@ class Home extends Component {
             }]
         }
     }
+
+    componentDidMount() {
+        db.ref("/").on("value", snapshot => {
+            let data = snapshot.val() ? snapshot.val() : {};
+            let settings = {...data};
+            console.log(settings)
+        })
+    }
+
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container}>
