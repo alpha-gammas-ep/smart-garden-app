@@ -57,7 +57,7 @@ class Home extends Component {
                         </Text>
                     </View>
                     <View style={styles.middleContainer}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 30, fontWeight: 'bold'}}>
                             Upcoming Waters
                         </Text>
                         <View style={styles.waterContainer}>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     middleContainer: {
-        paddingTop: 50,
         width: '90%'
     },
     bottomContainer: {
