@@ -238,7 +238,7 @@ class Settings extends Component {
                      }}
                      >
                     <DropDownPicker
-                        dropDownMaxHeight={55}
+                        dropDownMaxHeight={70}
                         defaultValue={this.state.plant_0_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -381,7 +381,7 @@ class Settings extends Component {
                       >
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <DropDownPicker
-                        dropDownMaxHeight={55}
+                        dropDownMaxHeight={70}
                         defaultValue={this.state.plant_1_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
     potContainer: {
         height: 550,
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 30,
         padding: 20,
         backgroundColor:'#ffffff',
         borderRadius: 20,
