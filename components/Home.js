@@ -26,7 +26,7 @@ class Home extends Component {
                 {
                     id: 2,
                     last_watered: info["plants"]["plant_1"]["last_watered"],
-                    interval: info["plants"]["plant_0"]["water_interval"],
+                    interval: info["plants"]["plant_1"]["water_interval"],
                     plant: info["settings"]["plant_1"]["plant"]
                 }], 
                 loading: false
