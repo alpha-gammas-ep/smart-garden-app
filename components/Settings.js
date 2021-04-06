@@ -6,16 +6,11 @@ import {db} from '../config';
 class Settings extends Component {
     constructor(props) {
         super(props);
-<<<<<<< HEAD
         this.state = {
-            settings: {},
-=======
-        this.state = { 
             plant_0_settings: {},
             plant_1_settings: {},
             plant_types: {},
             lst_plant_types: [],
->>>>>>> 3098fad5702e1dbc14c0c48ac77c4f142dc000f6
             loading: true
         }
         this.controller;
@@ -65,7 +60,7 @@ class Settings extends Component {
             }, 1000)
         })
     }
-    
+
     async updateFrequency(age, plant_name, path) {
         let freq = await this.getFrequency(age, plant_name)
         db.ref(path).update({
@@ -145,18 +140,15 @@ class Settings extends Component {
                       }}
                       >
                     <DropDownPicker
-<<<<<<< HEAD
                         defaultValue={this.state.settings["plant_0"]["plant"]}
                         items={[
                             {label: "vines", value: "vines"},
                             {label: "leaves", value: "leaves"}
                         ]}
-=======
                         searchable={true}
                         searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_0_settings["plant"]}
                         items={this.state.lst_plant_types}
->>>>>>> 3098fad5702e1dbc14c0c48ac77c4f142dc000f6
                         onChangeItem={plant => {
                             this.setState(prevState => ({
                                 plant_0_settings: {
@@ -295,18 +287,15 @@ class Settings extends Component {
                       }}
                       >
                     <DropDownPicker
-<<<<<<< HEAD
                         defaultValue={this.state.settings["plant_1"]["plant"]}
                         items={[
                             {label: "vines", value: "vines"},
                             {label: "leaves", value: "leaves"}
                         ]}
-=======
                         searchable={true}
                         searchablePlaceholder="Search for an item"
                         defaultValue={this.state.plant_1_settings["plant"]}
                         items={this.state.lst_plant_types}
->>>>>>> 3098fad5702e1dbc14c0c48ac77c4f142dc000f6
                         onChangeItem={plant => {
                             this.setState(prevState => ({
                                 plant_1_settings: {

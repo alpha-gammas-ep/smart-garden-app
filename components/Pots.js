@@ -1,32 +1,30 @@
 import React, { Component } from "react";
-import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import { Alert, Modal, Pressable } from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-export class MyCarousel extends Component {
-
-    _renderItem = ({item, index}) => {
-        return (
-            <View style={styles.slide}>
-                <Text style={styles.title}>{ item.title }</Text>
-            </View>
-        );
-    }
-
-    render () {
-        return (
-            <Carousel
-              ref={(c) => { this._carousel = c; }}
-              renderItem={this._renderItem}
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-            />
-        );
-    }
-}
 class Pots extends Component {
+
     state = {
         index:0,
+        activeIndex:0,
+        carouselItems: [
+            {
+                title:"Item 1",
+            },
+            {
+                title:"Item 2",
+            },
+            {
+                title:"Item 3",
+            },
+            {
+                title:"Item 4",
+            },
+            {
+                title:"Item 5",
+            },
+          ],
         modalVisible: false,
         plants: [{
             id: 0,
@@ -40,9 +38,20 @@ class Pots extends Component {
         }]
     };
 
-    constructor(props) {
-      super(props);
-      this._renderItem = this._renderItem.bind(this)
+
+    _renderItem({item,index}){
+        return (
+          <View style={{
+              backgroundColor:'floralwhite',
+              borderRadius: 5,
+              height: 250,
+              padding: 50,
+              marginLeft: 25,
+              marginRight: 25, }}>
+            <Text style={{fontSize: 30}}>{item.title}</Text>
+            <Text>{item.text}</Text>
+          </View>
+        )
     }
 
     setModalVisible = (visible) => {
@@ -64,21 +73,24 @@ class Pots extends Component {
                     }}
                     >
                     <View style={styles.centeredView}>
-                    <Carousel
-                      layout={"default"}
-                      ref={ref => this.carousel = ref}
-                      data={this.state.carouselItems}
-                      sliderWidth={300}
-                      itemWidth={300}
-                      renderItem={this._renderItem}
-                      onSnapToItem = { index => this.setState({activeIndex:index}) } />
                         <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Hello World!</Text>
+                        <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 50 }}>
+                          <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+                              <Carousel
+                                layout={"default"}
+                                ref={ref => this.carousel = ref}
+                                data={this.state.carouselItems}
+                                sliderWidth={300}
+                                itemWidth={300}
+                                renderItem={this._renderItem}
+                                onSnapToItem = { index => this.setState({activeIndex:index}) } />
+                          </View>
+                        </SafeAreaView>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => this.setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
+                            <Text style={styles.textStyle}>Close</Text>
                         </Pressable>
                         </View>
                     </View>
@@ -168,6 +180,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
+        height: 400,
         elevation: 5
       },
       button: {
@@ -189,27 +202,7 @@ const styles = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center"
-      ,
-      carouselContainer: {
-        marginTop: 50
-      },
-      itemContainer: {
-        width: ITEM_WIDTH,
-        height: ITEM_HEIGHT,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'dodgerblue'
-      },
-      itemLabel: {
-        color: 'white',
-        fontSize: 24
-      },
-      counter: {
-        marginTop: 25,
-        fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center'
-      }
+
 }})
 
 export default Pots;
