@@ -49,12 +49,15 @@ class Home extends Component {
             return (
                 <ScrollView contentContainerStyle={styles.container}>
                     <View style={styles.topContainer}>
-                        <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
-                            Welcome back!
+                        <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+                            Welcome{' '}
+                            <Text style={{color: '#669850'}}>
+                                Back!
+                            </Text>
                         </Text>
                     </View>
                     <View style={styles.middleContainer}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 30, fontWeight: 'bold'}}>
                             Upcoming Waters
                         </Text>
                         <View style={styles.waterContainer}>
@@ -100,18 +103,14 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffffff',
-        display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        backgroundColor: '#ffffff'
     },
     topContainer: {
-        paddingTop: 50,
+        marginVertical: 25,
         width: '90%'
     },
     middleContainer: {
-        paddingTop: 50,
         width: '90%'
     },
     bottomContainer: {

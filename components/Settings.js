@@ -144,9 +144,14 @@ class Settings extends Component {
         if (!this.state.loading) {
             return (
                 <ScrollView contentContainerStyle={styles.container}>
-                    <Text style={{fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
-                        Settings
-                    </Text>
+                    <View style={{marginVertical: 25, width: '90%'}}>
+                        <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+                            My{' '}
+                            <Text style={{color: '#669850'}}>
+                                Settings
+                            </Text>
+                        </Text>
+                    </View>
                     <View style={styles.potContainer}>
                     <Text style={styles.potText}>Pot 1 and 2</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
@@ -503,10 +508,8 @@ class Settings extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 30,
-        backgroundColor: "#ffffff"
+        backgroundColor: '#ffffff'
     },
     potText: {
         paddingTop: 0,
@@ -524,20 +527,23 @@ const styles = StyleSheet.create({
         alignSelf: "stretch",
     },
     potContainer: {
-        height: 650,
-        marginTop: 10,
-        marginBottom: 30,
-        padding: 20,
-        backgroundColor:'#ffffff',
-        borderRadius: 20,
-        borderWidth: 0.5,
-        borderColor: '#C1C1C1',
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: "#000000",
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        width: '90%',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        backgroundColor: '#ffffff',
+        shadowColor: "#000",
         shadowOffset: {
-        height: 1,
-        width: 0.5}
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginBottom: 25,
+        padding: 25
     }
 })
 
