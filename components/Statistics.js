@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import {Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {db} from '../config';
+import { initnotify, getToken, notify } from 'expo-push-notification-helper';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import { useState, useEffect, useRef } from 'react';
+import { Platform } from 'react-native';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 let ref = db.ref('/');
 const TOTAL_VOLUME = 14748.4;
@@ -12,7 +19,34 @@ class Statistics extends Component {
             data: {},
             loading: true
         }
+        console.log(initnotify());
+        this.sendPushNotification();
     }
+      
+    registerForPushNotificationsAsync = async() => {
+        const { status : existingStatus} = await Permissions.getAsync(
+            Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Permissions.askAsync
+            (Permissions.NOTIFICATIONS);
+            finalStatus = status;
+        }
+        if (finalStatus !== 'granted') { 
+            return;
+        }
+    }
+    sendPushNotification = async () => {
+        let t = await Notifications.getExpoPushTokenAsync();
+        db.ref('token').update({
+            token: t
+        })
+        if (this.getPercentVolume() == 0) {
+            notify(this.state.data['token']['token']['data'], "new message", "hello there how are you doing", "default")
+        }
+    }
+
     componentDidMount() {
         ref.on('value', snapshot => {
             let data = snapshot.val();
@@ -23,6 +57,7 @@ class Statistics extends Component {
             });
         });
     }
+
     getPercentVolume() {
         let diff_0 = this.state.data['plants']['plant_0']['last_watered'] - this.state.data['stats']['last_refilled'];
         let diff_1 = this.state.data['plants']['plant_1']['last_watered'] - this.state.data['stats']['last_refilled'];
@@ -56,6 +91,7 @@ class Statistics extends Component {
         }
         return null;
     }
+
     render() {
         if (!this.state.loading) {
             return (
@@ -67,6 +103,19 @@ class Statistics extends Component {
                         <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
                             Statistics
                         </Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.sendPushNotification();
+                                db.ref('token').update({
+                                    test: 'lol'
+                                })
+                                console.log(this.state.data['token']['token']['data']);
+                            }}
+                            style={styles.refillButton}
+                            underlayColor='#5B98BB'
+                            >
+                            <Text style={styles.refillText}>Notify</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.waterContainer}>
                         <View style={styles.textContainer}>
