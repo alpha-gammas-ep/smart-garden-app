@@ -7,7 +7,8 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            waters: []
+            waters: [],
+            loading: true
         }
     }
 
@@ -27,60 +28,69 @@ class Home extends Component {
                     last_watered: info["plants"]["plant_1"]["last_watered"],
                     interval: info["plants"]["plant_0"]["water_interval"],
                     plant: info["settings"]["plant_1"]["plant"]
-                }]
+                }], 
+                loading: false
             })
         })
     }
 
     getDate(milliseconds) {
-        const dateObject = new Date(parseInt(milliseconds))
-        return dateObject.toLocaleString()
+        const dateObject = new Date(milliseconds)
+        return dateObject.toLocaleDateString("en-US")
+    }
+
+    getTime(milliseconds) {
+        const dateObject = new Date(milliseconds)
+        return dateObject.toLocaleTimeString()
     }
 
     render() {
-        return (
-            <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.topContainer}>
-                    <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
-                        Welcome back!
-                    </Text>
-                </View>
-                <View style={styles.middleContainer}>
-                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                        Upcoming Waters
-                    </Text>
-                    <View style={styles.waterContainer}>
-                        
-                    {this.state.waters.map(wateringInfo => (
-                        <View key={wateringInfo.id} style={styles.waterNotif}>
-                            <View style={{display: 'flex', flexDirection: 'row'}}>
-                                <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>
-                                    {this.getDate(wateringInfo.last_watered)}
-                                </Text>
-                                <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', paddingTop: 15}}>
-                                    Watering{'\n'}
-                                </Text>
-                            </View>
-                            <View style={{display: 'flex', flexDirection: 'row', paddingLeft: 10, paddingBottom: 15}}>
-                                <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
-                                    {wateringInfo.time}
-                                </Text>
-                                <Text style={{flex: 1, color: 'gray', fontWeight: 'bold'}}>
-                                    {wateringInfo.plant}
-                                </Text>
-                            </View>
-                        </View>
-                    ))}
-    
+        if (!this.state.loading) {
+            return (
+                <ScrollView contentContainerStyle={styles.container}>
+                    <View style={styles.topContainer}>
+                        <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
+                            Welcome back!
+                        </Text>
                     </View>
-                </View>
-                <View style={styles.bottomContainer}>
-                    <Calendar>
-    
-                    </Calendar>
-                </View>
-            </ScrollView>
-        );
+                    <View style={styles.middleContainer}>
+                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                            Upcoming Waters
+                        </Text>
+                        <View style={styles.waterContainer}>
+                            
+                        {this.state.waters.map(wateringInfo => (
+                            <View key={wateringInfo.id} style={styles.waterNotif}>
+                                <View style={{display: 'flex', flexDirection: 'row'}}>
+                                    <Text style={{flex: 1, padding: 20}}>
+                                        <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+                                            {this.getDate(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}{'\n'}
+                                        </Text>
+                                        <Text style={{fontSize: 18, color: "#666666"}}>
+                                            {this.getTime(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}
+                                        </Text>
+                                    </Text>
+                                    <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', padding: 20}}>
+                                        Watering{'\n'}
+                                        {wateringInfo.plant}
+                                    </Text>
+                                </View>
+                            </View>
+                        ))}
+        
+                        </View>
+                    </View>
+                    <View style={styles.bottomContainer}>
+                        <Calendar>
+        
+                        </Calendar>
+                    </View>
+                </ScrollView>
+            );
+        }
+        else {
+            return null
+        }
     }
 }
 
