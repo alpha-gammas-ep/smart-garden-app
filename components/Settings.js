@@ -26,6 +26,7 @@ class Settings extends Component {
                 plant_0_settings: settings["plant_0"],
                 plant_1_settings: settings["plant_1"],
                 plant_types: settings["plant_watering_frequency"],
+                soil_types: settings["soil_types"],
                 lst_plant_types: lst,
                 loading: false
             });
@@ -116,7 +117,7 @@ class Settings extends Component {
             this.updateVolume(this.state.plant_0_settings["diameter"], height, "/plants/plant_0")
         }
         else {
-            this.updateVolumen(this.state.plant_1_settings["diameter"], height, "/plants/plant_1")
+            this.updateVolume(this.state.plant_1_settings["diameter"], height, "/plants/plant_1")
         }
     }
 
