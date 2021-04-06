@@ -6,14 +6,13 @@ import {db} from '../config';
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             plant_0_settings: {},
             plant_1_settings: {},
             plant_types: {},
             lst_plant_types: [],
             loading: true
         }
-        this.controller;
     }
     componentDidMount() {
         db.ref('/settings').on('value', snapshot => {
@@ -29,7 +28,6 @@ class Settings extends Component {
                 plant_types: settings["plant_watering_frequency"],
                 lst_plant_types: lst,
                 loading: false
-
             });
         });
     }
@@ -60,7 +58,7 @@ class Settings extends Component {
             }, 1000)
         })
     }
-    
+
     async updateFrequency(age, plant_name, path) {
         let freq = await this.getFrequency(age, plant_name)
         db.ref(path).update({
@@ -135,7 +133,7 @@ class Settings extends Component {
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
-                          zIndex:999, height:40
+                          zIndex:99999, height:40
                         })
                       }}
                       >
@@ -161,8 +159,6 @@ class Settings extends Component {
                     />
                     </View>
 
-
-                    <Text style={styles.potInfo}>Soil Type</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -170,6 +166,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_0_settings["age"]}
                         items={[
@@ -193,7 +190,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -201,6 +197,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_0_settings["diameter"]}
                         items={[
@@ -231,15 +228,17 @@ class Settings extends Component {
                     />
                     </View>
 
+
                     <Text style={styles.potInfo}>Pot Height</Text>
                     <View
-                      style={{
-                        ...(Platform.OS !== 'android' && {
-                          zIndex:99
-                        })
-                      }}
-                      >
+                     style={{
+                       ...(Platform.OS !== 'android' && {
+                         zIndex:99
+                       })
+                     }}
+                     >
                     <DropDownPicker
+                        dropDownMaxHeight={55}
                         defaultValue={this.state.plant_0_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -277,7 +276,7 @@ class Settings extends Component {
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
-                          zIndex:9999
+                          zIndex:99999
                         })
                       }}
                       >
@@ -303,7 +302,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Age</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -311,6 +309,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Age</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["age"]}
                         items={[
@@ -331,10 +330,10 @@ class Settings extends Component {
                             justifyContent: 'space-between'
                         }}
                         dropDownStyle={{backgroundColor: '#fafafa'}}
+
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -342,6 +341,7 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Pot Diameter (cm)</Text>
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["diameter"]}
                         items={[
@@ -372,7 +372,6 @@ class Settings extends Component {
                     />
                     </View>
 
-                    <Text style={styles.potInfo}>Pot Height (cm)</Text>
                     <View
                       style={{
                         ...(Platform.OS !== 'android' && {
@@ -380,7 +379,9 @@ class Settings extends Component {
                         })
                       }}
                       >
+                    <Text style={styles.potInfo}>Pot Height</Text>
                     <DropDownPicker
+                        dropDownMaxHeight={55}
                         defaultValue={this.state.plant_1_settings["height"]}
                         items={[
                             {label: "6", value: "6"},
@@ -409,6 +410,7 @@ class Settings extends Component {
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
                     </View>
+
                     </View>
                 </ScrollView>
             );
