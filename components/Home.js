@@ -3,8 +3,10 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 
 class Home extends Component {
-    state = {
-        wateringData: [
+    constructor(props) {
+        super(props)
+        this.state = {
+            waters: [
             {
                 id: 1,
                 date: 'March 7, 2021',
@@ -16,8 +18,8 @@ class Home extends Component {
                 date: 'March 9, 2021',
                 time: '3:00 PM',
                 plant: 'Cauliflower'
-            }
-        ]
+            }]
+        }
     }
     render() {
         return (
@@ -33,7 +35,7 @@ class Home extends Component {
                     </Text>
                     <View style={styles.waterContainer}>
                         
-                    {this.state.wateringData.map(wateringInfo => (
+                    {this.state.waters.map(wateringInfo => (
                         <View key={wateringInfo.id} style={styles.waterNotif}>
                             <View style={{display: 'flex', flexDirection: 'row'}}>
                                 <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>

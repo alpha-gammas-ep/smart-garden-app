@@ -13,7 +13,6 @@ class Settings extends Component {
             lst_plant_types: [],
             loading: true
         }
-        this.controller;
     }
     componentDidMount() {
         db.ref('/settings').on('value', snapshot => {
