@@ -321,13 +321,10 @@ class Settings extends Component {
                         })
                       }}
                       >
-<<<<<<< HEAD
                     <Text style={styles.potInfo}>Age</Text>
-=======
 
                     <Text style={styles.potInfo}>Age</Text>
 
->>>>>>> 11a16192bf21d7302c6d261733fe034048297fdc
                     <DropDownPicker
                         defaultValue={this.state.plant_1_settings["age"]}
                         items={[

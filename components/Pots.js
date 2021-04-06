@@ -249,5 +249,6 @@ const styles = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center"
+}})
 
 export default Pots;
