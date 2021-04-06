@@ -7,17 +7,7 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            waters: [
-            {
-                id: 1,
-                last_watered: 'March 7, 2021',
-                plant: 'Spinach'
-            },
-            {
-                id: 2,
-                last_watered: 'March 9, 2021',
-                plant: 'Cauliflower'
-            }]
+            waters: []
         }
     }
 
@@ -26,20 +16,25 @@ class Home extends Component {
             let data = snapshot.val() ? snapshot.val() : {};
             let info = {...data};
             this.setState({
-                waters: [
-                    {
-                        id: 1,
-                        last_watered: info["plants"]["plant_0"]["last_watered"],
-                        plant: info["settings"]["plant_0"]["plant"]
-                    },
-                    {
-                        id: 2,
-                        last_watered: info["plants"]["plant_1"]["last_watered"],
-                        plant: info["settings"]["plant_1"]["plant"]
-                    }
-                ]
+                waters: [{
+                    id: 1,
+                    last_watered: info["plants"]["plant_0"]["last_watered"],
+                    interval: info["plants"]["plant_0"]["water_interval"],
+                    plant: info["settings"]["plant_0"]["plant"]
+                },
+                {
+                    id: 2,
+                    last_watered: info["plants"]["plant_1"]["last_watered"],
+                    interval: info["plants"]["plant_0"]["water_interval"],
+                    plant: info["settings"]["plant_1"]["plant"]
+                }]
             })
         })
+    }
+
+    getDate(milliseconds) {
+        const dateObject = new Date(parseInt(milliseconds))
+        return dateObject.toLocaleString()
     }
 
     render() {
@@ -60,7 +55,7 @@ class Home extends Component {
                         <View key={wateringInfo.id} style={styles.waterNotif}>
                             <View style={{display: 'flex', flexDirection: 'row'}}>
                                 <Text style={{flex: 1, fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10}}>
-                                    {wateringInfo.last_watered}
+                                    {this.getDate(wateringInfo.last_watered)}
                                 </Text>
                                 <Text style={{flex: 1, fontSize: 12, fontWeight: 'bold', paddingTop: 15}}>
                                     Watering{'\n'}
