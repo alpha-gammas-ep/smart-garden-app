@@ -5,7 +5,6 @@ import Carousel from 'react-native-snap-carousel';
 
 
 class Pots extends Component {
-
     state = {
         index:0,
         activeIndex:0,
