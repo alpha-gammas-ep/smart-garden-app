@@ -219,9 +219,12 @@ class Statistics extends Component {
                     {/* Tank */}
 
                     <View style={styles.topContainer}>
-                        <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold', alignSelf: "baseline"}}>
+                    <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+                        My{' '}
+                        <Text style={{color: '#669850'}}>
                             Statistics
                         </Text>
+                    </Text>
                     </View>
                     <View style={styles.waterContainer}>
                         <View style={styles.textContainer}>
@@ -419,7 +422,7 @@ const styles = StyleSheet.create({
     fertilizerButton: {
         width: '50%',
         height: 50,
-        backgroundColor:'#E1EED3',
+        backgroundColor:'#80a855',
         borderRadius: 15,
         borderWidth: 1,
         borderColor: '#ffffff',
@@ -429,7 +432,7 @@ const styles = StyleSheet.create({
     fertilizerText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color:'#000000'
+        color:'#ffffff'
     },
 })
 
