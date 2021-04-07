@@ -96,8 +96,11 @@ class Home extends Component {
             return (
                 <ScrollView contentContainerStyle={styles.container}>
                     <View style={styles.topContainer}>
-                        <Text style={{color: '#000000', fontSize: 35, fontWeight: 'bold'}}>
-                            Welcome back!
+                        <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
+                            Welcome{' '}
+                            <Text style={{color: '#669850'}}>
+                                Back!
+                            </Text>
                         </Text>
                     </View>
                     <View style={styles.middleContainer}>
@@ -105,32 +108,30 @@ class Home extends Component {
                             Upcoming Waters
                         </Text>
                         <View style={styles.waterContainer}>
+                            {this.state.waters.map(wateringInfo => (
+                                <View key={wateringInfo.id} style={styles.waterNotif}>
+                                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                                        <Text style={{flex: 1, padding: 20}}>
+                                            <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                                                {this.getDate(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}{'\n'}
+                                            </Text>
+                                            <Text style={{fontSize: 12, fontWeight: 'bold', color: "grey"}}>
+                                                {this.getTime(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}
+                                            </Text>
+                                        </Text>
+                                        <Text style={{flex: 1, padding: 20}}>
+                                            <Text style={{fontSize: 18, fontWeight: "bold"}}>
+                                                Watering{'\n'}
+                                            </Text>
+                                            <Text style={{fontSize: 12, fontWeight: 'bold', color: "grey"}}>
+                                                {wateringInfo.plant.replace(/_/g, " ")}
+                                            </Text>
+                                        </Text>
+                                        <View style={styles.CircleShape} />
 
-                        {this.state.waters.map(wateringInfo => (
-                            <View key={wateringInfo.id} style={styles.waterNotif}>
-                                <View style={{display: 'flex', flexDirection: 'row'}}>
-                                    <Text style={{flex: 1, padding: 20}}>
-                                        <Text style={{fontSize: 24, fontWeight: 'bold'}}>
-                                            {this.getDate(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}{'\n'}
-                                        </Text>
-                                        <Text style={{fontSize: 18, color: "#666666"}}>
-                                            {this.getTime(parseInt(wateringInfo.last_watered) + parseInt(wateringInfo.interval))}
-                                        </Text>
-                                    </Text>
-                                    <Text style={{flex: 1, padding: 20}}>
-                                        <Text style={{fontSize: 20, fontWeight: "bold"}}>
-                                            Watering{'\n'}
-                                        </Text>
-                                        <Text style={{fontSize: 18, color: "#666666"}}>
-                                            {wateringInfo.plant.replace(/_/g, " ")}
-                                        </Text>
-                                    </Text>
-                                    <View style={styles.CircleShape} />
-
+                                    </View>
                                 </View>
-                            </View>
-                        ))}
-
+                            ))}
                         </View>
                     </View>
                     <View style={styles.bottomContainer}>
@@ -152,18 +153,14 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffffff',
-        display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        backgroundColor: '#ffffff'
     },
     topContainer: {
-        paddingTop: 50,
+        marginVertical: 25,
         width: '90%'
     },
     middleContainer: {
-        paddingTop: 50,
         width: '90%'
     },
     bottomContainer: {

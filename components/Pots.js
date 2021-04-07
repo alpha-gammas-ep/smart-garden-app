@@ -70,21 +70,6 @@ class Pots extends Component {
     }
 
 
-    _renderItem({item,index}){
-        return (
-          <View style={{
-              backgroundColor:'floralwhite',
-              borderRadius: 5,
-              height: 250,
-              padding: 50,
-              marginLeft: 25,
-              marginRight: 25, }}>
-            <Text style={{fontSize: 30}}>{item.title}</Text>
-            <Text>{item.text}</Text>
-          </View>
-        )
-    }
-
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
@@ -98,10 +83,10 @@ class Pots extends Component {
               padding: 20,
               marginLeft: 25,
               marginRight: 25, }}>
-            <Text style={{fontSize: 30}}>{item.title}</Text>
+            <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 10, fontWeight: 'bold'}}>{item.title}</Text>
             <Image
                 source={require(`../assets/timed_pictures/Today.png`)}
-                style={{width: 175, height: 175}}
+                style={{width: 175, height: 175, alignSelf: 'center'}}
                 resizeMode='contain'
             />
             <Text>{item.text}</Text>
@@ -128,8 +113,9 @@ class Pots extends Component {
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
                         <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 50, }}>
-                        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+                        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center'}}>
                             <Carousel
+                              style={{alignSelf: 'center'}}
                               layout={"default"}
                               ref={ref => this.carousel = ref}
                               data={this.state.carouselItems}
@@ -164,7 +150,7 @@ class Pots extends Component {
                         style={styles.pot}
                         underlayColor='#d4f0c7'
                     >
-                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pot {plants.id+1} and {plants.id+2}</Text>
+                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots {plants.id+1} {'&'} {plants.id+2}</Text>
                         <View style={{alignItems: 'center'}}>
                             <Image
                                 source={require('../assets/pot-icon.png')}
@@ -184,6 +170,7 @@ class Pots extends Component {
                         </View>
                     </TouchableOpacity>
                 )}
+                <View style={{height: 50}}></View>
             </ScrollView>
         );
     }
@@ -204,6 +191,7 @@ const styles = StyleSheet.create({
     pot: {
         flex: 1,
         height: 300,
+        width: '90%',
         backgroundColor: '#e1eed3',
         borderRadius: 20,
         borderWidth: 1,
@@ -216,14 +204,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row'
     },
-
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22
-      },
-      modalView: {
+    },
+    modalView: {
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -238,26 +225,27 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         height: 400
-      },
-      button: {
+    },
+    button: {
         borderRadius: 20,
         padding: 10,
         elevation: 2
-      },
-      buttonOpen: {
+    },
+    buttonOpen: {
         backgroundColor: "#F194FF",
-      },
-      buttonClose: {
+    },
+    buttonClose: {
         backgroundColor: "#2196F3",
-      },
-      textStyle: {
+    },
+    textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
-      },
-      modalText: {
+    },
+    modalText: {
         marginBottom: 15,
         textAlign: "center"
-}})
+    }
+})
 
 export default Pots;
