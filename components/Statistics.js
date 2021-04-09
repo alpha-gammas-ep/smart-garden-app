@@ -116,7 +116,7 @@ class Statistics extends Component {
               sound: true,
             },
             trigger: {
-              seconds: total_time,
+              seconds: 5,
             },
           };
 
@@ -195,18 +195,18 @@ class Statistics extends Component {
     getDaysLeft0() {
         let timeElapsed = Date.now() - this.state.data['stats']['last_fertilized_0'];
         if (this.state.data['settings']['plant_0']['age'] == 'sapling') {
-            return 7 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24);
+            return Math.max((7 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24)), 0)
         } else {
-            return 14 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24);
+            return Math.max((14 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24)), 0)
         }
         return null;
     }
     getDaysLeft1() {
         let timeElapsed = Date.now() - this.state.data['stats']['last_fertilized_1'];
         if (this.state.data['settings']['plant_1']['age'] == 'sapling') {
-            return 7 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24);
+            return Math.max((7 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24)), 0)
         } else {
-            return 14 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24);
+            return Math.max((14 - Math.floor(timeElapsed / 1000 / 60 / 60 / 24)), 0)
         }
         return null;
     }

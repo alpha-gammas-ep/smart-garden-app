@@ -76,7 +76,7 @@ class Settings extends Component {
 
     updateVolume(diameter, height, soil_type, path) {
         db.ref(path).update({
-            water_volume: ((diameter/2)**2 * Math.PI * height * parseFloat(this.state.soil_types[soil_type])).toString()
+            water_volume: ((parseFloat(diameter)/2)**2 * Math.PI * parseFloat(height) * parseFloat(this.state.soil_types[soil_type])).toString()
         })
     }
 
@@ -121,10 +121,10 @@ class Settings extends Component {
             diameter: diameter
         })
         if (path == "/settings/plant_0") {
-            this.updateVolume(diameter, this.state.plant_0_settings["height"], "/plants/plant_0")
+            this.updateVolume(diameter, this.state.plant_0_settings["height"], this.state.plant_0_settings["soil"], "/plants/plant_0")
         }
         else {
-            this.updateVolume(diameter, this.state.plant_1_settings["height"], "/plants/plant_1")
+            this.updateVolume(diameter, this.state.plant_1_settings["height"], this.state.plant_1_settings["soil"], "/plants/plant_1")
         }
     }
 
@@ -133,10 +133,10 @@ class Settings extends Component {
             height: height
         })
         if (path == "/settings/plant_0") {
-            this.updateVolume(this.state.plant_0_settings["diameter"], height, "/plants/plant_0")
+            this.updateVolume(this.state.plant_0_settings["diameter"], height, this.state.plant_0_settings["soil"], "/plants/plant_0")
         }
         else {
-            this.updateVolume(this.state.plant_1_settings["diameter"], height, "/plants/plant_1")
+            this.updateVolume(this.state.plant_1_settings["diameter"], height, this.state.plant_1_settings["soil"], "/plants/plant_1")
         }
     }
 
