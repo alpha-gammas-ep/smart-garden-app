@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import {Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {db} from '../config';
-import { initnotify, getToken, notify } from 'expo-push-notification-helper';
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
-import { useState, useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-import { Expo } from 'expo-server-sdk';
 
 let ref = db.ref('/');
 const TOTAL_VOLUME = 14748.4;
