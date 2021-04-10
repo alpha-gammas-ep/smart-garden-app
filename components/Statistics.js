@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import {Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {db} from '../config';
-import { initnotify, getToken, notify } from 'expo-push-notification-helper';
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
-import { useState, useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-import { Expo } from 'expo-server-sdk';
+
 
 let ref = db.ref('/');
 const TOTAL_VOLUME = 14748.4;
@@ -22,7 +16,7 @@ class Statistics extends Component {
         }
         //console.log(initnotify());
     }
-      
+
     // registerForPushNotificationsAsync = async() => {
     //     const { status : existingStatus} = await Permissions.getAsync(
     //         Permissions.NOTIFICATIONS
@@ -33,7 +27,7 @@ class Statistics extends Component {
     //         (Permissions.NOTIFICATIONS);
     //         finalStatus = status;
     //     }
-    //     if (finalStatus !== 'granted') { 
+    //     if (finalStatus !== 'granted') {
     //         return;
     //     }
     // }
@@ -78,12 +72,12 @@ class Statistics extends Component {
     //     //     notify(this.state.data['token']['token']['data'], "new message", "hello there how are you doing", "default")
     //     // }
     // }
-    
+
     componentDidMount() {
         ref.on('value', snapshot => {
             let data = snapshot.val();
             let allData = {...data};
-            this.setState({ 
+            this.setState({
                 data: allData,
                 loading: false
             });
@@ -215,7 +209,7 @@ class Statistics extends Component {
         if (!this.state.loading) {
             return (
                 <ScrollView contentContainerStyle={styles.container}>
-                    
+
                     {/* Tank */}
 
                     <View style={styles.topContainer}>
@@ -259,7 +253,7 @@ class Statistics extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    
+
                     {/* Fertilizer 1 & 2 */}
 
                     <View style={styles.waterContainer}>
@@ -342,7 +336,7 @@ class Statistics extends Component {
                         </View>
                     </View>
                 </ScrollView>
-                
+
             );
         } else {
             return null;
@@ -388,7 +382,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     potText: {
-        paddingTop: 10, 
+        paddingTop: 10,
         paddingLeft: 60,
         fontWeight: 'bold',
         fontSize: 18,

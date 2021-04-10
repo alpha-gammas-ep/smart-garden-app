@@ -284,7 +284,7 @@ class Settings extends Component {
                     </View>
 
 
-                    <Text style={styles.potInfo}>Pot Height</Text>
+                    <Text style={styles.potInfo}>Pot Height (cm)</Text>
                     <View
                      style={{
                        ...(Platform.OS !== 'android' && {
@@ -464,7 +464,7 @@ class Settings extends Component {
                         })
                       }}
                       >
-                    <Text style={styles.potInfo}>Pot Height</Text>
+                    <Text style={styles.potInfo}>Pot Height (cm)</Text>
                     <DropDownPicker
                         dropDownMaxHeight={70}
                         defaultValue={this.state.plant_1_settings["height"]}
