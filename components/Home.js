@@ -86,7 +86,7 @@ class Home extends Component {
 
         const result = {}
       	for (let i = 0; i <= items.length; i++) {
-      		result[items[i]] = {marked : true};
+      		result[items[i]] = {selected : true, selectedColor: 'deepskyblue', textColor: 'black'};
       	}
         return result
       }
@@ -138,8 +138,8 @@ class Home extends Component {
                         <Calendar
                             theme={{
                               todayBackgroundColor: '#CDECF3',
-                              todayTextColor: '#4A4A4A'
-                            }}
+                              todayTextColor: '#4A4A4A',
+                              textDayFontWeight: 'bold'                            }}
                             markedDates={
                               this.CalendarMarker()
                             }
