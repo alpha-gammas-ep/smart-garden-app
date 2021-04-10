@@ -9,7 +9,6 @@ import Home from './components/Home.js';
 import Settings from './components/Settings.js';
 import Logo from './components/Logo.js'
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -17,15 +16,15 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerLeft: () => <Logo />}}>
                 <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Home" 
-                    component={Tabs} 
-                    options={{title:'Smart Garden', 
+                <Stack.Screen name="Home"
+                    component={Tabs}
+                    options={{title:'Smart Garden',
                         headerTitleStyle: {
-                            color:'#669850', 
-                            fontSize: 20, 
+                            color:'#669850',
+                            fontSize: 20,
                             fontWeight: 'bold'
-                        }, 
-                        headerTitleAlign: 'left', 
+                        },
+                        headerTitleAlign: 'left',
                         headerTitleContainerStyle: {
                             left: 55
                         }}}/>
