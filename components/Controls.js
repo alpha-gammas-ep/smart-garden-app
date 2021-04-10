@@ -89,7 +89,7 @@ class Controls extends Component {
                                 onPress={() =>
                                     this.updateButtonText(1)
                                 }
-                                style={styles.button}
+                                style={styles.waterButton}
                                 underlayColor='#5B98BB'
                                 >
                                 <Text style={styles.buttonText}>{this.setButtonText(1)}</Text>
@@ -97,8 +97,8 @@ class Controls extends Component {
                         </View>
                         <View style={styles.imageContainer}>
                             <Image
-                                source={require('../assets/water-bucket.png')}
-                                style={{flex: 1}}
+                                source={require('../assets/water-drop.png')}
+                                style={{flex: 1, marginVertical: 20}}
                                 resizeMode='contain'
                             />
                         </View>
@@ -115,15 +115,21 @@ class Controls extends Component {
                                 onPress={() =>
                                     this.updateButtonText(2)
                                 }
-                                style={styles.button}
+                                style={styles.lightButton}
                                 underlayColor='#5B98BB'
                                 >
-                                <Text style={styles.buttonText}>{this.setButtonText(2)}</Text>
+                                <Text style={{
+                                    fontSize: 16,
+                                    fontWeight: 'bold',
+                                    color:'#000000'
+                                }}>
+                                    {this.setButtonText(2)}
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.imageContainer}>
                             <Image
-                                source={require('../assets/water-bucket.png')}
+                                source={require('../assets/sun.png')}
                                 style={{flex: 1}}
                                 resizeMode='contain'
                             />
@@ -143,7 +149,7 @@ class Controls extends Component {
                                         capture: 1
                                     })
                                 }
-                                style={styles.button}
+                                style={styles.photosButton}
                                 underlayColor='#5B98BB'
                                 >
                                 <Text style={styles.buttonText}>Capture</Text>
@@ -151,8 +157,8 @@ class Controls extends Component {
                         </View>
                         <View style={styles.imageContainer}>
                             <Image
-                                source={require('../assets/water-bucket.png')}
-                                style={{flex: 1}}
+                                source={require('../assets/camera.png')}
+                                style={{flex: 1, marginVertical: 15}}
                                 resizeMode='contain'
                             />
                         </View>
@@ -204,7 +210,7 @@ const styles = StyleSheet.create({
     textContainer : {
         flex: 1
     },
-    button: {
+    waterButton: {
         width: 100,
         height: 40,
         backgroundColor:'#5B98BB',
@@ -212,7 +218,27 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ffffff',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center'  
+    },
+    lightButton: {
+        width: 100,
+        height: 40,
+        backgroundColor:'#FDF082',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'  
+    },
+    photosButton: {
+        width: 100,
+        height: 40,
+        backgroundColor:'#7C8CAA',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'  
     },
     buttonText: {
         fontSize: 16,
