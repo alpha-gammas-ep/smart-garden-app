@@ -9,7 +9,9 @@ import Home from './components/Home.js';
 import Settings from './components/Settings.js';
 import Logo from './components/Logo.js'
 
-import { initnotify, getToken, notify } from 'expo-push-notification-helper';
+import { initnotify, getToken, notify } from 'expo-push-notification-helper';import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 const Stack = createStackNavigator();
 

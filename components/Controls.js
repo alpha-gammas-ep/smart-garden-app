@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {db} from '../config';
 
 let ref = db.ref('/');
@@ -23,6 +24,47 @@ class Controls extends Component {
             });
         });
     }
+
+    setButtonText(num) {
+        if (num == 1) {
+            if (this.state.data['controls']['water'] == 0) {
+                return 'Water On'
+            } else {
+                return 'Water Off'
+            }
+        } else if (num == 2) {
+            if (this.state.data['controls']['light'] == 0) {
+                return 'Light On'
+            } else {
+                return 'Light Off'
+            }
+        }
+    }
+
+    updateButtonText(num) {
+        if (num == 1) {
+            if (this.state.data['controls']['water'] == 0) {    
+                db.ref('/controls').update({
+                    water: 1
+                })
+            } else {
+                db.ref('/controls').update({
+                    water: 0
+                })
+            }
+        } else if (num == 2) {
+            if (this.state.data['controls']['light'] == 0) {    
+                db.ref('/controls').update({
+                    light: 1
+                })
+            } else {
+                db.ref('/controls').update({
+                    light: 0
+                })
+            }
+        }
+    }
+
     render() {
         if (!this.state.loading) {
             return (
@@ -45,12 +87,12 @@ class Controls extends Component {
                             </View>
                             <TouchableOpacity
                                 onPress={() =>
-                                    console.log('gang shit')
+                                    this.updateButtonText(1)
                                 }
                                 style={styles.button}
                                 underlayColor='#5B98BB'
                                 >
-                                <Text style={styles.buttonText}>Water</Text>
+                                <Text style={styles.buttonText}>{this.setButtonText(1)}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.imageContainer}>
@@ -71,12 +113,12 @@ class Controls extends Component {
                             </View>
                             <TouchableOpacity
                                 onPress={() =>
-                                    console.log('gang shit')
+                                    this.updateButtonText(2)
                                 }
                                 style={styles.button}
                                 underlayColor='#5B98BB'
                                 >
-                                <Text style={styles.buttonText}>Light</Text>
+                                <Text style={styles.buttonText}>{this.setButtonText(2)}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.imageContainer}>
@@ -97,7 +139,9 @@ class Controls extends Component {
                             </View>
                             <TouchableOpacity
                                 onPress={() =>
-                                    console.log('gang shit')
+                                    db.ref('/controls').update({
+                                        capture: 1
+                                    })
                                 }
                                 style={styles.button}
                                 underlayColor='#5B98BB'
