@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 
 import Home from './Home.js';
 import Settings from './Settings.js';
 import Statistics from './Statistics.js';
 import Pots from './Pots.js';
+import Controls from './Controls.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,21 +19,16 @@ function Tabs() {
                 let iconName;
 
                 if (route.name === 'Statistics') {
-                    iconName = focused
-                        ? 'leaf'
-                        : 'leaf-outline';
+                    iconName = 'leaf';
                 } else if (route.name === 'Pots') {
-                    iconName = focused 
-                        ? 'color-fill'
-                        : 'color-fill-outline';
+                    iconName = 'color-fill'
                 } else if (route.name === 'Home') {
-                    iconName = focused 
-                        ? 'calendar'
-                        : 'calendar-outline';
+                    iconName = 'calendar'
+                } else if (route.name === 'Controls') {
+                    iconName = 'settings'
+                    return <Octicons name={iconName} size={size} color={color} />
                 } else if (route.name === 'Settings') {
-                    iconName = focused 
-                        ? 'settings'
-                        : 'settings-outline';
+                    iconName = 'settings'
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
@@ -40,12 +36,14 @@ function Tabs() {
             tabBarOptions={{
                 activeTintColor: '#669850',
                 inactiveTintColor: 'gray',
-                activeBackgroundColor: '#d4f0c7'
+                activeBackgroundColor: '#d4f0c7',
+                
             }}
         >
             <Tab.Screen name="Home" component={Home}/>
             <Tab.Screen name="Pots" component={Pots}/>
             <Tab.Screen name="Statistics" component={Statistics}/>
+            <Tab.Screen name="Controls" component={Controls}/>
             <Tab.Screen name="Settings" component={Settings}/>
         </Tab.Navigator>
     );
