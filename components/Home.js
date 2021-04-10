@@ -136,6 +136,10 @@ class Home extends Component {
                     </View>
                     <View style={styles.bottomContainer}>
                         <Calendar
+                            theme={{
+                              todayBackgroundColor: '#CDECF3',
+                              todayTextColor: '#4A4A4A'
+                            }}
                             markedDates={
                               this.CalendarMarker()
                             }
