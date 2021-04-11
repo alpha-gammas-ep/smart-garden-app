@@ -86,8 +86,16 @@ class Home extends Component {
 
         const result = {}
       	for (let i = 0; i <= items.length; i++) {
-      		result[items[i]] = {selected : true, selectedColor: 'deepskyblue', textColor: 'black'};
-      	}
+      		result[items[i]] = {customStyles: {
+                container: {
+                  backgroundColor: '#C7EEF4'
+                },
+                text: {
+                  color: 'black',
+                  fontWeight: 'bold'
+                }
+              }};
+        }
         return result
       }
 
@@ -127,7 +135,6 @@ class Home extends Component {
                                                 {wateringInfo.plant.replace(/_/g, " ")}
                                             </Text>
                                         </Text>
-                                        <View style={styles.CircleShape} />
 
                                     </View>
                                 </View>
@@ -136,9 +143,10 @@ class Home extends Component {
                     </View>
                     <View style={styles.bottomContainer}>
                         <Calendar
+                            markingType={'custom'}
                             theme={{
-                              todayBackgroundColor: '#CDECF3',
-                              todayTextColor: '#4A4A4A',
+                              todayBackgroundColor: '#6291a3',
+                              todayTextColor: 'white',
                               textDayFontWeight: 'bold'                            }}
                             markedDates={
                               this.CalendarMarker()
@@ -176,20 +184,11 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     waterNotif: {
-        backgroundColor: '#d4f0c7',
+        backgroundColor: '#C7EEF4',
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#ffffff',
         marginTop: 10
-    },
-    CircleShape: {
-      width: 4,
-      height: 4,
-      borderRadius: 2,
-      backgroundColor: 'deepskyblue',
-      justifyContent: 'center',
-      paddingTop: 50,
-      paddingBottom: 50
     }
 
 })
