@@ -76,7 +76,7 @@ class Settings extends Component {
 
     updateVolume(diameter, height, soil_type, path) {
         db.ref(path).update({
-            water_volume: ((parseFloat(diameter)/2)**2 * Math.PI * parseFloat(height) * parseFloat(this.state.soil_types[soil_type])).toString()
+            water_volume: (parseInt(parseFloat(diameter)/2)**2 * Math.PI * parseFloat(height) * parseFloat(this.state.soil_types[soil_type])).toString()
         })
     }
 
