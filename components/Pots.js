@@ -18,41 +18,42 @@ class Pots extends Component {
     }
 
     componentDidMount() {
-        let imageRef = storage.ref('/picture1.jpg');
+        let today = new Date();
+        let dd = today.getDate();
+
+        let mm = today.getMonth()+1; 
+        let yyyy = today.getFullYear();
+
+        let carouselItems = [{id: 0}, {id: 1}, {id: 2}, {id: 3}, 
+            {id: 4}, {id: 5}, {id: 6}]
+        for (let i = 0; i < carouselItems.length; i++) {
+            if (i == 0) {
+                carouselItems[i]["title"] = "Today"
+            }
+            else if (i == 1) {
+                carouselItems[i]["title"] = i + " day ago"
+            }
+            else {
+                carouselItems[i]["title"] = i + " days ago"
+            }
+            let fileName = mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
+            storage.ref(fileName).getDownloadURL().then((url) => {
+                carouselItems[i]["url"] = url
+            })
+        }
+        let imageRef = storage.ref('/test1.jpg');
         imageRef.getDownloadURL().then((url) => {
             db.ref('/settings').on('value', snapshot => {
                 let data = snapshot.val() ? snapshot.val() : {};
                 let settings = {...data};
                 this.setState({
-                    img: url,
+                    //img: url,
                     plant_0_settings: settings["plant_0"],
                     plant_1_settings: settings["plant_1"],
                     plant_types: settings["plant_watering_frequency"],
-                    index:0,
-                    activeIndex:0,
-                    carouselItems: [
-                        {
-                            title:"Today",
-                        },
-                        {
-                            title:"1 day ago",
-                        },
-                        {
-                            title:"2 days ago",
-                        },
-                        {
-                            title:"3 days ago",
-                        },
-                        {
-                            title:"4 days ago",
-                        },
-                        {
-                            title:"5 days ago",
-                        },
-                        {
-                            title:"6 days ago",
-                        },
-                    ],
+                    index: 0,
+                    activeIndex: 0,
+                    carouselItems: carouselItems,
                     modalVisible: false,
                     activeIndex:0,
                     plants: [{
@@ -77,22 +78,20 @@ class Pots extends Component {
         this.setState({ modalVisible: visible });
     }
 
-    _renderItem = (item) => {
+    _renderItem = (item) => { 
         return (
           <View style={{
-              backgroundColor:'floralwhite',
               borderRadius: 5,
               height: 250,
               padding: 20,
               marginLeft: 25,
               marginRight: 25, }}>
-            <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 10, fontWeight: 'bold'}}>{item.title}</Text>
+            <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 10, fontWeight: 'bold'}}>{item["item"]["title"]}</Text>
             <Image
-                source={{uri: this.state.img}}
+                source={{uri: item["item"]["url"] }}
                 style={{width: 175, height: 175, alignSelf: 'center'}}
                 resizeMode='contain'
             />
-            <Text>{item.text}</Text>
           </View>
 
         )
