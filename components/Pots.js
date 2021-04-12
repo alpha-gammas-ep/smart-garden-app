@@ -2,71 +2,74 @@ import React, { Component } from "react";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import { Alert, Modal, Pressable } from "react-native";
 import Carousel from 'react-native-snap-carousel';
-import { db } from "../config";
-
+import { db, storage } from "../config";
 
 class Pots extends Component {
         constructor(props) {
         super(props);
         this.state = {
+            img: "",
             plant_0_settings: {},
             plant_1_settings: {},
             plant_types: {},
             lst_plant_types: [],
-            loading: true
+            loading: true,
         }
     }
+
     componentDidMount() {
-        db.ref('/settings').on('value', snapshot => {
-            let data = snapshot.val() ? snapshot.val() : {};
-            let settings = {...data};
-            this.setState({
-                plant_0_settings: settings["plant_0"],
-                plant_1_settings: settings["plant_1"],
-                plant_types: settings["plant_watering_frequency"],
-                loading: false,
-                index:0,
-                activeIndex:0,
-                carouselItems: [
-                    {
-                        title:"Today",
-
+        let imageRef = storage.ref('/picture1.jpg');
+        imageRef.getDownloadURL().then((url) => {
+            db.ref('/settings').on('value', snapshot => {
+                let data = snapshot.val() ? snapshot.val() : {};
+                let settings = {...data};
+                this.setState({
+                    img: url,
+                    plant_0_settings: settings["plant_0"],
+                    plant_1_settings: settings["plant_1"],
+                    plant_types: settings["plant_watering_frequency"],
+                    index:0,
+                    activeIndex:0,
+                    carouselItems: [
+                        {
+                            title:"Today",
+                        },
+                        {
+                            title:"1 day ago",
+                        },
+                        {
+                            title:"2 days ago",
+                        },
+                        {
+                            title:"3 days ago",
+                        },
+                        {
+                            title:"4 days ago",
+                        },
+                        {
+                            title:"5 days ago",
+                        },
+                        {
+                            title:"6 days ago",
+                        },
+                    ],
+                    modalVisible: false,
+                    activeIndex:0,
+                    plants: [{
+                        id: 0,
+                        name: settings['plant_0']['plant'],
+                        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
                     },
                     {
-                        title:"1 day ago",
-                    },
-                    {
-                        title:"2 days ago",
-                    },
-                    {
-                        title:"3 days ago",
-                    },
-                    {
-                        title:"4 days ago",
-                    },
-                    {
-                        title:"5 days ago",
-                    },
-                    {
-                        title:"6 days ago",
-                    },
-
-                  ],
-                modalVisible: false,
-                activeIndex:0,
-
-                plants: [{
-                    id: 0,
-                    name: settings['plant_0']['plant'],
-                    heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-                },
-                {
-                    id: 2,
-                    name: settings['plant_1']['plant'],
-                    heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
-                }]
+                        id: 2,
+                        name: settings['plant_1']['plant'],
+                        heights: [2, 2.1, 2.3, 2.3, 2.4, null, null]
+                    }]
+                });
             });
-        });
+        }).then(() => {
+            this.setState({loading: false})
+        })
     }
 
 
@@ -74,7 +77,7 @@ class Pots extends Component {
         this.setState({ modalVisible: visible });
     }
 
-    _renderItem({item,index}){
+    _renderItem = (item) => {
         return (
           <View style={{
               backgroundColor:'floralwhite',
@@ -85,7 +88,7 @@ class Pots extends Component {
               marginRight: 25, }}>
             <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 10, fontWeight: 'bold'}}>{item.title}</Text>
             <Image
-                source={require(`../assets/timed_pictures/Today.png`)}
+                source={{uri: this.state.img}}
                 style={{width: 175, height: 175, alignSelf: 'center'}}
                 resizeMode='contain'
             />
