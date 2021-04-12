@@ -27,17 +27,9 @@ class Controls extends Component {
 
     setButtonText(num) {
         if (num == 1) {
-            if (this.state.data['controls']['plant_0']['water'] == 0) {
-                return 'Top Water On'
-            } else {
-                return 'Top Water Off'
-            }
+            return 'Water Top'
         } else if (num == 2) {
-            if (this.state.data['controls']['plant_1']['water'] == 0) {
-                return 'Bottom Water On'
-            } else {
-                return 'Bottom Water Off'
-            }
+            return 'Water Bottom'
         } else if (num == 3) {
             if (this.state.data['controls']['light'] == 0) {
                 return 'Lights On'
@@ -49,25 +41,13 @@ class Controls extends Component {
 
     updateButtonText(num) {
         if (num == 1) {
-            if (this.state.data['controls']['plant_0']['water'] == 0) {    
-                db.ref('/controls/plant_0').update({
-                    water: 1
-                })
-            } else {
-                db.ref('/controls/plant_0').update({
-                    water: 0
-                })
-            }
+            db.ref('/controls/plant_0').update({
+                water: 1
+            })
         } else if (num == 2) {
-            if (this.state.data['controls']['plant_1']['water'] == 0) {    
-                db.ref('/controls/plant_1').update({
-                    water: 1
-                })
-            } else {
-                db.ref('/controls/plant_1').update({
-                    water: 0
-                })
-            }
+            db.ref('/controls/plant_1').update({
+                water: 1
+            })
         } else if (num == 3) {
             if (this.state.data['controls']['light'] == 0) {    
                 db.ref('/controls').update({
