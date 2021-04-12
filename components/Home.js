@@ -3,7 +3,7 @@ import { Alert, Modal, Pressable } from "react-native";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Platform} from 'react-native';
 
 import {Calendar} from 'react-native-calendars';
-import {db} from "../config";
+import {db, storage} from "../config";
 
 class Home extends Component {
 
@@ -11,38 +11,41 @@ class Home extends Component {
         super(props)
         this.state = {
             waters: [],
-            dates1: {},
-            dates2: {},
             allData: {},
             dayPressed: '',
+            month: 0,
+            day: 0,
+            year: 0,
+            img1: '',
+            img2: '',
             loading: true
         }
     }
 
     componentDidMount() {
-        db.ref("/").on("value", snapshot => {
-            let data = snapshot.val() ? snapshot.val() : {};
-            let info = {...data};
+            db.ref("/").on("value", snapshot => {
+                let data = snapshot.val() ? snapshot.val() : {};
+                let info = {...data};
 
-            this.setState({
-                waters: [{
-                    id: 1,
-                    last_watered: info["plants"]["plant_0"]["last_watered"],
-                    interval: info["plants"]["plant_0"]["water_interval"],
-                    plant: info["settings"]["plant_0"]["plant"]
-                },
-                {
-                    id: 2,
-                    last_watered: info["plants"]["plant_1"]["last_watered"],
-                    interval: info["plants"]["plant_1"]["water_interval"],
-                    plant: info["settings"]["plant_1"]["plant"]
-                }],
-                allData: info,
-                modalVisible: false,
+                this.setState({
+                    waters: [{
+                        id: 1,
+                        last_watered: info["plants"]["plant_0"]["last_watered"],
+                        interval: info["plants"]["plant_0"]["water_interval"],
+                        plant: info["settings"]["plant_0"]["plant"]
+                    },
+                    {
+                        id: 2,
+                        last_watered: info["plants"]["plant_1"]["last_watered"],
+                        interval: info["plants"]["plant_1"]["water_interval"],
+                        plant: info["settings"]["plant_1"]["plant"]
+                    }],
+                    allData: info,
+                    modalVisible: false,
 
-                loading: false
+                    loading: false
+                })
             })
-        })
     }
 
     getFrequency(age, plant_name) {
@@ -107,110 +110,128 @@ class Home extends Component {
         return result
       }
 
-      setModalVisible = (visible, date) => {
+    setModalVisible = (visible, date) => {
         let formattedDate = `${date['month']}/${date['day']}/${date['year']}`
+        let day = date['day']
+        let month = date['month']
+        let year = date['year']
         this.setState({ modalVisible: visible, dayPressed: formattedDate});
-      }
+        let fileName = "0_" + month + "_" + day + "_" + year + ".jpg"
+        storage.ref(fileName).getDownloadURL().then((url) => {
+            this.setState({imageUrl: url})
+        }).catch((err) => {
+            errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+            this.setState({imageUrl: errorUrl})
+        })
+        let fileName2 = "1_" + month + "_" + day + "_" + year + ".jpg"
+        storage.ref(fileName2).getDownloadURL().then((url) => {
+            this.setState({imageUrl2: url})
+        }).catch((err) => {
+            errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+            this.setState({imageUrl2: errorUrl})
+        })
+        db.ref('/').update({
+            test: 1
+        })
+    }
 
-      modalWaters1() {
-        let nextDate= this.getDate(parseInt(this.state.waters[0].last_watered*1000) + parseInt(this.state.waters[0].interval))
-          if (nextDate == this.state.dayPressed) {
-            return (
-            <View style={[styles.waterNotif, styles.modalWaterNotif]}>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text style={{flex: 1, paddingLeft: 20, paddingTop: 20, paddingBottom: 10}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                            Pots 1 & 2
-                        </Text>
+    modalWaters1() {
+    let nextDate= this.getDate(parseInt(this.state.waters[0].last_watered*1000) + parseInt(this.state.waters[0].interval))
+        if (nextDate == this.state.dayPressed) {
+        return (
+        <View style={[styles.waterNotif, styles.modalWaterNotif]}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        Pots 1 & 2
+                    </Text>
+                </Text>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <View style={{flex:1}}>
+                    <Text style={{fontSize: 12, paddingLeft:20}}>
+                        {this.state.waters[0]['plant'].replace(/_/g, " ")}
                     </Text>
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                  <View style={{flex:1}}>
-                    <Text style={{fontSize: 15, fontWeight: "bold",paddingLeft:20}}>
-                            {this.state.waters[0]['plant'].replace(/_/g, " ")}
-                        </Text>
-                  </View>
-                  <View style={{flex:1, paddingLeft:100, paddingBottom:20}}>
-                        <Text style={{fontSize: 14, fontWeight: 'bold', color: "black"}}>
-                            {this.getTime(parseInt(this.state.waters[0].last_watered*1000) + parseInt(this.state.waters[0].interval))}
-                        </Text>
-                        <Text style={{fontSize: 12, fontWeight: 'bold', color: "grey"}}>
-                           ({this.state.allData['plants']['plant_0']['water_volume']} mL)
-                        </Text>
-                    </View>
-                </View>
-            </View>
-          )} else {
-            return (
-            <View style={[styles.waterNotif, styles.modalWaterNotif]}>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text style={{flex: 1, paddingLeft: 20, paddingTop: 20, paddingBottom: 10}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                            Pots 1 & 2
-                        </Text>
+                <View style={{flex:1, paddingLeft:100, paddingBottom:15}}>
+                    <Text style={{fontSize: 12, color: "black"}}>
+                        {this.getTime(parseInt(this.state.waters[0].last_watered*1000) + parseInt(this.state.waters[0].interval))}
+                    </Text>
+                    <Text style={{fontSize: 10, fontWeight: 'bold', color: "grey"}}>
+                        ({this.state.allData['plants']['plant_0']['water_volume']} mL)
                     </Text>
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                  <View style={{flex:1, paddingBottom:20}}>
-                    <Text style={{fontSize: 15, fontWeight: "bold",paddingLeft:20}}>
-                            No watering!
-                        </Text>
-                  </View>
-                </View>
             </View>
-          )}
-        }
-
-        modalWaters2() {
-          let nextDate= this.getDate(parseInt(this.state.waters[1].last_watered*1000) + parseInt(this.state.waters[1].interval))
-          if (nextDate == this.state.dayPressed) {
-            return (
-            <View style={[styles.waterNotif, styles.modalWaterNotif]}>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text style={{flex: 1, paddingLeft: 20, paddingTop: 20, paddingBottom: 10}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                            Pots 3 & 4
-                        </Text>
+        </View>
+        )} else {
+        return (
+        <View style={[styles.waterNotif, styles.modalWaterNotif]}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        Pots 1 & 2
+                    </Text>
+                </Text>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <View style={{flex:1, paddingBottom:15}}>
+                <Text style={{fontSize: 12,paddingLeft:20}}>
+                        No watering!
                     </Text>
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                  <View style={{flex:1}}>
-                    <Text style={{fontSize: 15, fontWeight: "bold",paddingLeft:20}}>
-                            {this.state.waters[1]['plant'].replace(/_/g, " ")}
-                        </Text>
-                  </View>
-                  <View style={{flex:1, paddingLeft:100, paddingBottom:20}}>
-                        <Text style={{fontSize: 14, fontWeight: 'bold', color: "black"}}>
-                            {this.getTime(parseInt(this.state.waters[1].last_watered*1000) + parseInt(this.state.waters[1].interval))}
-                        </Text>
-                        <Text style={{fontSize: 12, fontWeight: 'bold', color: "grey"}}>
-                           ({this.state.allData['plants']['plant_1']['water_volume']} mL)
-                        </Text>
-                    </View>
-                </View>
             </View>
-          )} else {
-            return (
-            <View style={[styles.waterNotif, styles.modalWaterNotif]}>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text style={{flex: 1, paddingLeft: 20, paddingTop: 20, paddingBottom: 10}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                            Pots 3 & 4
-                        </Text>
+        </View>
+        )}
+    }
+
+    modalWaters2() {
+        let nextDate= this.getDate(parseInt(this.state.waters[1].last_watered*1000) + parseInt(this.state.waters[1].interval))
+        if (nextDate == this.state.dayPressed) {
+        return (
+        <View style={[styles.waterNotif, styles.modalWaterNotif]}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        Pots 3 & 4
+                    </Text>
+                </Text>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <View style={{flex:1}}>
+                <Text style={{fontSize: 12, paddingLeft:20}}>
+                        {this.state.waters[1]['plant'].replace(/_/g, " ")}
                     </Text>
                 </View>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                  <View style={{flex:1, paddingBottom:20}}>
-                    <Text style={{fontSize: 15, fontWeight: "bold",paddingLeft:20}}>
-                            No watering!
-                        </Text>
-                  </View>
+                <View style={{flex:1, paddingLeft:100, paddingBottom:15}}>
+                    <Text style={{fontSize: 12, color: "black"}}>
+                        {this.getTime(parseInt(this.state.waters[1].last_watered*1000) + parseInt(this.state.waters[1].interval))}
+                    </Text>
+                    <Text style={{fontSize: 10, fontWeight: 'bold', color: "grey"}}>
+                        ({this.state.allData['plants']['plant_1']['water_volume']} mL)
+                    </Text>
                 </View>
             </View>
-          )}
-          }
-
-
+        </View>
+        )} else {
+        return (
+        <View style={[styles.waterNotif, styles.modalWaterNotif]}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                        Pots 3 & 4
+                    </Text>
+                </Text>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <View style={{flex:1, paddingBottom:15}}>
+                    <Text style={{fontSize: 12, paddingLeft:20}}>
+                        No watering!
+                    </Text>
+                </View>
+            </View>
+        </View>
+        )}
+    }
 
     render() {
         const {modalVisible} = this.state;
@@ -269,20 +290,33 @@ class Home extends Component {
                             this.setModalVisible(!modalVisible);
                         }}
                         >
-                        <View style={styles.modalContainer}>
+                    <View style={styles.modalContainer}>
                         <Text style={{fontSize: 25, fontWeight: 'bold'}}>{this.state.dayPressed}</Text>
-                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots 1 {'&'} 2</Text>
-                        <Text style={{fontSize: 25, fontWeight: 'bold', textAlign: 'left'}}>Pots 3 {'&'} 4</Text>
-                        <Text style={{fontSize: 30, fontWeight: 'bold'}}>Waters</Text>
-
+                        <View style={{height: 20}}/>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pots 1 {'&'} 2</Text>
+                        <View style={{height: 10}}/>
+                        <Image
+                            source={{uri: this.state.imageUrl}}
+                            style={{width: 175, height: 175, alignSelf: 'center'}}
+                            resizeMode='contain'
+                        />
+                        <View style={{height: 10}}/>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pots 3 {'&'} 4</Text>
+                        <View style={{height: 10}}/>
+                        <Image
+                            source={{uri: this.state.imageUrl2}}
+                            style={{width: 175, height: 175, alignSelf: 'center'}}
+                            resizeMode='contain'
+                        />
+                        <View style={{height: 10}}/>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Waters</Text>
                         {this.modalWaters1()}
                         {this.modalWaters2()}
-
+                        <View style={{height: 10}}/>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => this.setModalVisible(!modalVisible, '')}
                             >
-
                                 <Text style={styles.textStyle}>Close</Text>
                             </Pressable>
                         </View>
@@ -325,8 +359,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         display: 'flex',
-        flex: 1,
-        marginTop: 180,
+        marginTop: 50,
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -339,7 +372,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        height: 770
     },
     middleContainer: {
         width: '90%'
