@@ -171,8 +171,8 @@ class Statistics extends Component {
     }
 
     getPercentVolume() {
-        let diff_0 = this.state.data['plants']['plant_0']['last_watered'] - this.state.data['stats']['last_refilled'];
-        let diff_1 = this.state.data['plants']['plant_1']['last_watered'] - this.state.data['stats']['last_refilled'];
+        let diff_0 = this.state.data['plants']['plant_0']['last_watered']*1000 - this.state.data['stats']['last_refilled'];
+        let diff_1 = this.state.data['plants']['plant_1']['last_watered']*1000 - this.state.data['stats']['last_refilled'];
         let water_0 = 0;
         let water_1 = 0;
         if (diff_0 > 0) {

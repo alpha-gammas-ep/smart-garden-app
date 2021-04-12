@@ -36,9 +36,26 @@ class Pots extends Component {
             else {
                 carouselItems[i]["title"] = i + " days ago"
             }
-            let fileName = mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
+            let fileName = "0_" + mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems[i]["url"] = url
+            })
+        }
+        let carouselItems2 = [{id: 0}, {id: 1}, {id: 2}, {id: 3}, 
+            {id: 4}, {id: 5}, {id: 6}]
+        for (let i = 0; i < carouselItems2.length; i++) {
+            if (i == 0) {
+                carouselItems2[i]["title"] = "Today"
+            }
+            else if (i == 1) {
+                carouselItems2[i]["title"] = i + " day ago"
+            }
+            else {
+                carouselItems2[i]["title"] = i + " days ago"
+            }
+            let fileName = "1_" + mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
+            storage.ref(fileName).getDownloadURL().then((url) => {
+                carouselItems2[i]["url"] = url
             })
         }
         let imageRef = storage.ref('/test1.jpg');
@@ -53,9 +70,11 @@ class Pots extends Component {
                     plant_types: settings["plant_watering_frequency"],
                     index: 0,
                     activeIndex: 0,
+                    activeIndex2:0,
                     carouselItems: carouselItems,
+                    carouselItems2: carouselItems2,
                     modalVisible: false,
-                    activeIndex:0,
+                    modalVisible2: false,
                     plants: [{
                         id: 0,
                         name: settings['plant_0']['plant'],
@@ -73,9 +92,12 @@ class Pots extends Component {
         })
     }
 
-
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
+    }
+
+    setModalVisible2 = (visible) => {
+        this.setState({ modalVisible2: visible});
     }
 
     _renderItem = (item) => { 
@@ -93,12 +115,12 @@ class Pots extends Component {
                 resizeMode='contain'
             />
           </View>
-
         )
     }
 
     render() {
         const {modalVisible} = this.state;
+        const {modalVisible2} = this.state;
         if (!this.state.loading) {
         return (
             <ScrollView contentContainerStyle={styles.container}>
@@ -137,6 +159,40 @@ class Pots extends Component {
                     </View>
                 </Modal>
 
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible2}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        this.setModalVisible2(!modalVisible2);
+                    }}
+                    >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                        <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 50, }}>
+                        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center'}}>
+                            <Carousel
+                              style={{alignSelf: 'center'}}
+                              layout={"default"}
+                              ref={ref => this.carousel = ref}
+                              data={this.state.carouselItems2}
+                              sliderWidth={300}
+                              itemWidth={300}
+                              renderItem={this._renderItem}
+                              onSnapToItem = { index => this.setState({activeIndex2:index}) } />
+                        </View>
+                        </SafeAreaView>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => this.setModalVisible2(!modalVisible2)}
+                        >
+                            <Text style={styles.textStyle}>Close</Text>
+                        </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+
                 <View style={styles.topContainer}>
                     <Text style={{color: '#000000', fontSize: 45, fontWeight: 'bold'}}>
                         My{' '}
@@ -145,14 +201,36 @@ class Pots extends Component {
                         </Text>
                     </Text>
                 </View>
-                {this.state.plants.map((plants) =>
-                    <TouchableOpacity
-                        key={plants.id}
-                        onPress={() => this.setModalVisible(true)}
+                <TouchableOpacity
+                    onPress={() => this.setModalVisible(true)}
+                    style={styles.pot}
+                    underlayColor='#d4f0c7'
+                >
+                    <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots 1 {'&'} 2</Text>
+                    <View style={{alignItems: 'center'}}>
+                        <Image
+                            source={require('../assets/pot-icon.png')}
+                            style={{width: 175, height: 175}}
+                            resizeMode='contain'
+                        />
+                    </View>
+                    <View style={{
+                        backgroundColor: '#ffffff',
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        borderColor: '#ffffff',
+                        alignItems: 'center',
+                        padding: 3
+                    }}>
+                        <Text style={{fontSize: 15}}>{this.state.plants[0]['name']}</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                        onPress={() => this.setModalVisible2(true)}
                         style={styles.pot}
                         underlayColor='#d4f0c7'
                     >
-                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots {plants.id+1} {'&'} {plants.id+2}</Text>
+                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots 3 {'&'} 4</Text>
                         <View style={{alignItems: 'center'}}>
                             <Image
                                 source={require('../assets/pot-icon.png')}
@@ -168,10 +246,9 @@ class Pots extends Component {
                             alignItems: 'center',
                             padding: 3
                         }}>
-                            <Text style={{fontSize: 15}}>{plants.name}</Text>
+                            <Text style={{fontSize: 15}}>{this.state.plants[1]['name']}</Text>
                         </View>
                     </TouchableOpacity>
-                )}
                 <View style={{height: 50}}></View>
             </ScrollView>
         );
