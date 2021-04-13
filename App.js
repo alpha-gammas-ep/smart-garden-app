@@ -12,7 +12,7 @@ import { LogBox } from 'react-native';
 // LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 // LogBox.ignoreAllLogs();//Ignore all log notifications
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
     return (

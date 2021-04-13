@@ -123,7 +123,6 @@ class Home extends Component {
             month = "0" + month
         }
         let fileName = "0-" + year + "-" + month + "-" + day + ".jpg"
-        console.log(fileName)
         storage.ref(fileName).getDownloadURL().then((url) => {
             this.setState({imageUrl: url})
         }).catch((err) => {
@@ -148,7 +147,7 @@ class Home extends Component {
         return (
         <View style={[styles.waterNotif, styles.modalWaterNotif]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
                         Pots 1 & 2
                     </Text>
@@ -156,15 +155,15 @@ class Home extends Component {
             </View>
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{flex:1}}>
-                    <Text style={{fontSize: 12, paddingLeft:20}}>
+                    <Text style={{fontSize: 12, paddingLeft:20, color: 'grey', fontWeight: 'bold'}}>
                         {this.state.waters[0]['plant'].replace(/_/g, " ")}
                     </Text>
                 </View>
                 <View style={{flex:1, paddingLeft:100, paddingBottom:15}}>
-                    <Text style={{fontSize: 12, color: "black"}}>
+                    <Text style={{fontSize: 12, color: 'grey', fontWeight: 'bold'}}>
                         {this.getTime(parseInt(this.state.waters[0].last_watered*1000) + parseInt(this.state.waters[0].interval))}
                     </Text>
-                    <Text style={{fontSize: 10, fontWeight: 'bold', color: "grey"}}>
+                    <Text style={{fontSize: 10, fontWeight: 'bold'}}>
                         ({this.state.allData['plants']['plant_0']['water_volume']} mL)
                     </Text>
                 </View>
@@ -174,7 +173,7 @@ class Home extends Component {
         return (
         <View style={[styles.waterNotif, styles.modalWaterNotif]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 3}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
                         Pots 1 & 2
                     </Text>
@@ -182,7 +181,7 @@ class Home extends Component {
             </View>
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{flex:1, paddingBottom:15}}>
-                <Text style={{fontSize: 12,paddingLeft:20}}>
+                    <Text style={{fontSize: 12, paddingLeft: 20, color: 'grey', fontWeight: 'bold'}}>
                         No watering!
                     </Text>
                 </View>
@@ -197,7 +196,7 @@ class Home extends Component {
         return (
         <View style={[styles.waterNotif, styles.modalWaterNotif]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
                         Pots 3 & 4
                     </Text>
@@ -205,15 +204,15 @@ class Home extends Component {
             </View>
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{flex:1}}>
-                <Text style={{fontSize: 12, paddingLeft:20}}>
+                <Text style={{fontSize: 12, paddingLeft: 20, color: 'grey', fontWeight: 'bold'}}>
                         {this.state.waters[1]['plant'].replace(/_/g, " ")}
                     </Text>
                 </View>
                 <View style={{flex:1, paddingLeft:100, paddingBottom:15}}>
-                    <Text style={{fontSize: 12, color: "black"}}>
+                    <Text style={{fontSize: 12, color: 'grey', fontWeight: 'bold'}}>
                         {this.getTime(parseInt(this.state.waters[1].last_watered*1000) + parseInt(this.state.waters[1].interval))}
                     </Text>
-                    <Text style={{fontSize: 10, fontWeight: 'bold', color: "grey"}}>
+                    <Text style={{fontSize: 10, fontWeight: 'bold'}}>
                         ({this.state.allData['plants']['plant_1']['water_volume']} mL)
                     </Text>
                 </View>
@@ -223,7 +222,7 @@ class Home extends Component {
         return (
         <View style={[styles.waterNotif, styles.modalWaterNotif]}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 5}}>
+                <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 3}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
                         Pots 3 & 4
                     </Text>
@@ -231,7 +230,7 @@ class Home extends Component {
             </View>
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{flex:1, paddingBottom:15}}>
-                    <Text style={{fontSize: 12, paddingLeft:20}}>
+                    <Text style={{fontSize: 12, paddingLeft: 20, color: 'grey', fontWeight: 'bold'}}>
                         No watering!
                     </Text>
                 </View>
@@ -300,7 +299,7 @@ class Home extends Component {
                     <View style={styles.modalContainer}>
                         <Text style={{fontSize: 25, fontWeight: 'bold'}}>{this.state.dayPressed}</Text>
                         <View style={{height: 20}}/>
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pots 1 {'&'} 2</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Pots 1 {'&'} 2</Text>
                         <View style={{height: 10}}/>
                         <Image
                             source={{uri: this.state.imageUrl}}
@@ -308,7 +307,7 @@ class Home extends Component {
                             resizeMode='contain'
                         />
                         <View style={{height: 10}}/>
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pots 3 {'&'} 4</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Pots 3 {'&'} 4</Text>
                         <View style={{height: 10}}/>
                         <Image
                             source={{uri: this.state.imageUrl2}}
@@ -316,7 +315,7 @@ class Home extends Component {
                             resizeMode='contain'
                         />
                         <View style={{height: 10}}/>
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Waters</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#5B98BB'}}>Waters</Text>
                         {this.modalWaters1()}
                         {this.modalWaters2()}
                         <View style={{height: 10}}/>
@@ -324,7 +323,7 @@ class Home extends Component {
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => this.setModalVisible(!modalVisible, '')}
                             >
-                                <Text style={styles.textStyle}>Close</Text>
+                                <Text style={styles.buttonText}>Close</Text>
                             </Pressable>
                         </View>
                     </Modal>
@@ -395,15 +394,20 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
         elevation: 2
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3"
+        width: '35%',
+        height: 35,
+        backgroundColor:'#669850',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     waterNotif: {
         backgroundColor: '#C7EEF4',
@@ -414,6 +418,11 @@ const styles = StyleSheet.create({
     },
     modalWaterNotif: {
         width: '100%',
+    },
+    buttonText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color:'#ffffff'
     }
 
 })

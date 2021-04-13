@@ -104,20 +104,22 @@ class Statistics extends Component {
     }
 
     scheduleRefillNotif() {
-        let time_left_0 = this.state.data['plants']['plant_0']['water_interval'];
-        let time_left_1 = this.state.data['plants']['plant_1']['water_interval'];
+        let time_left_0 = parseInt(this.state.data['plants']['plant_0']['water_interval']);
+        let time_left_1 = parseInt(this.state.data['plants']['plant_1']['water_interval']);
+        let water_volume_0 = parseInt(this.state.data['plants']['plant_0']['water_volume']);
+        let water_volume_1 = parseInt(this.state.data['plants']['plant_1']['water_volume']);
         let volume_remaining = TOTAL_VOLUME;
         let total_time = 0;
-        while (volume_remaining > time_left_0 && volume_remaining > time_left_1) {
+        while (volume_remaining > water_volume_0 && volume_remaining > water_volume_1) {
             if (time_left_0 < time_left_1) {
-                volume_remaining -= this.state.data['plants']['plant_0']['water_volume'];
+                volume_remaining -= water_volume_0;
                 time_left_1 -= time_left_0;
-                time_left_0 = this.state.data['plants']['plant_0']['water_interval'];
+                time_left_0 = parseInt(this.state.data['plants']['plant_0']['water_interval']);
                 total_time += time_left_0;
             } else {
-                volume_remaining -= this.state.data['plants']['plant_1']['water_volume'];
+                volume_remaining -= water_volume_1;
                 time_left_0 -= time_left_1;
-                time_left_1 = this.state.data['plants']['plant_1']['water_interval'];
+                time_left_1 = parseInt(this.state.data['plants']['plant_1']['water_interval']);
                 total_time += time_left_1;
             }
         }

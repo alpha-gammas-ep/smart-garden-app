@@ -65,7 +65,6 @@ class Pots extends Component {
                 carouselItems2[i]["title"] = i + " days ago"
             }
             let fileName = "1-" + yyyy + "-" + mm + "-" + (parseInt(dd)-i).toString() + ".jpg"
-            console.log(fileName)
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems2[i]["url"] = url
             }).catch((err) => {
@@ -168,7 +167,7 @@ class Pots extends Component {
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => this.setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>Close</Text>
+                            <Text style={styles.buttonText}>Close</Text>
                         </Pressable>
                         </View>
                     </View>
@@ -321,15 +320,20 @@ const styles = StyleSheet.create({
         height: 400
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
         elevation: 2
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        width: 110,
+        height: 35,
+        backgroundColor:'#669850',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     textStyle: {
         color: "white",
@@ -339,6 +343,11 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    buttonText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color:'#ffffff'
     }
 })
 
