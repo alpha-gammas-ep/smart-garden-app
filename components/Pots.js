@@ -24,6 +24,10 @@ class Pots extends Component {
         let mm = today.getMonth()+1; 
         let yyyy = today.getFullYear();
 
+        if (mm < 10) {
+            mm = "0" + mm
+        }
+
         let carouselItems = [{id: 0}, {id: 1}, {id: 2}, {id: 3}, 
             {id: 4}, {id: 5}, {id: 6}]
         for (let i = 0; i < carouselItems.length; i++) {
@@ -36,9 +40,16 @@ class Pots extends Component {
             else {
                 carouselItems[i]["title"] = i + " days ago"
             }
-            let fileName = "0_" + mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
+            day = (parseInt(dd)-i).toString()
+            if (day < 10) {
+                day = "0" + day
+            }
+            let fileName = "0-" + yyyy + "-" + mm + "-" + day + ".jpg"
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems[i]["url"] = url
+            }).catch((err) => {
+                errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+                carouselItems[i]["url"] = errorUrl
             })
         }
         let carouselItems2 = [{id: 0}, {id: 1}, {id: 2}, {id: 3}, 
@@ -53,9 +64,13 @@ class Pots extends Component {
             else {
                 carouselItems2[i]["title"] = i + " days ago"
             }
-            let fileName = "1_" + mm + "_" + (parseInt(dd)-i).toString() + "_" + yyyy + ".jpg"
+            let fileName = "1-" + yyyy + "-" + mm + "-" + (parseInt(dd)-i).toString() + ".jpg"
+            console.log(fileName)
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems2[i]["url"] = url
+            }).catch((err) => {
+                errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+                carouselItems2[i]["url"] = errorUrl
             })
         }
         let imageRef = storage.ref('/test1.jpg');

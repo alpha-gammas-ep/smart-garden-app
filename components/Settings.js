@@ -497,8 +497,6 @@ class Settings extends Component {
                     </View>
 
                     </View>
-
-                    <View style={{height: 25}}></View>
                 </ScrollView>
             );
         }

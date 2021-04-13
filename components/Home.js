@@ -116,14 +116,21 @@ class Home extends Component {
         let month = date['month']
         let year = date['year']
         this.setState({ modalVisible: visible, dayPressed: formattedDate});
-        let fileName = "0_" + month + "_" + day + "_" + year + ".jpg"
+        if (day < 10) {
+            day = "0" + day
+        }
+        if (month < 10) {
+            month = "0" + month
+        }
+        let fileName = "0-" + year + "-" + month + "-" + day + ".jpg"
+        console.log(fileName)
         storage.ref(fileName).getDownloadURL().then((url) => {
             this.setState({imageUrl: url})
         }).catch((err) => {
             errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
             this.setState({imageUrl: errorUrl})
         })
-        let fileName2 = "1_" + month + "_" + day + "_" + year + ".jpg"
+        let fileName2 = "1-" + year + "-" + month + "-" + day + ".jpg"
         storage.ref(fileName2).getDownloadURL().then((url) => {
             this.setState({imageUrl2: url})
         }).catch((err) => {
@@ -131,7 +138,7 @@ class Home extends Component {
             this.setState({imageUrl2: errorUrl})
         })
         db.ref('/').update({
-            test: 1
+            update: 1
         })
     }
 
@@ -339,6 +346,7 @@ class Home extends Component {
                         />
 
                     </View>
+                    <View style={{height: 25}}/>
                 </ScrollView>
             );
         }

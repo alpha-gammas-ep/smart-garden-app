@@ -4,7 +4,7 @@ import {db} from '../config';
 import * as Notifications from 'expo-notifications';
 
 let ref = db.ref('/');
-const TOTAL_VOLUME = 14748.4;
+const TOTAL_VOLUME = 11061.3;
 
 class Statistics extends Component {
     constructor(props) {
@@ -80,7 +80,27 @@ class Statistics extends Component {
                 data: allData,
                 loading: false
             });
+            if (allData['stats']['tank'] == 0) {
+                this.sendRefillNotif()
+            }
         });
+    }
+
+    sendRefillNotif() {
+        const schedulingOptions = {
+            content: {
+              title: 'Refill Tank',
+              body: 'Tank is Empty!',
+              sound: true,
+            },
+            trigger: {
+              seconds: 5,
+            },
+          };
+
+        Notifications.scheduleNotificationAsync(
+            schedulingOptions,
+        );
     }
 
     scheduleRefillNotif() {
@@ -109,12 +129,10 @@ class Statistics extends Component {
               sound: true,
             },
             trigger: {
-              seconds: 5,
+              seconds: total_time,
             },
           };
 
-        // Notifications show only when app is not active.
-        // (ie. another app being used or device's screen is locked)
         Notifications.scheduleNotificationAsync(
             schedulingOptions,
         );
@@ -171,6 +189,9 @@ class Statistics extends Component {
     }
 
     getPercentVolume() {
+        if (this.state.data['stats']['tank'] == 0) {
+            return 0
+        }
         let diff_0 = this.state.data['plants']['plant_0']['last_watered']*1000 - this.state.data['stats']['last_refilled'];
         let diff_1 = this.state.data['plants']['plant_1']['last_watered']*1000 - this.state.data['stats']['last_refilled'];
         let water_0 = 0;
