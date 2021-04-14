@@ -153,7 +153,7 @@ class Settings extends Component {
                         </Text>
                     </View>
                     <View style={styles.potContainer}>
-                    <Text style={styles.potText}>Pot 1 and 2</Text>
+                    <Text style={styles.potText}>Top Pots</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <View
                       style={{
@@ -326,7 +326,7 @@ class Settings extends Component {
                     </View>
                     <View style={{height: 25}}></View>
                     <View style={styles.potContainer}>
-                    <Text style={styles.potText}>Pot 3 and 4</Text>
+                    <Text style={styles.potText}>Bottom Pots</Text>
                     <Text style={styles.potInfo}>Plant Type</Text>
                     <View
                       style={{
@@ -495,7 +495,7 @@ class Settings extends Component {
                         dropDownStyle={{backgroundColor: '#fafafa'}}
                     />
                     </View>
-
+                    <View style={{height: 20}} />
                     </View>
                 </ScrollView>
             );

@@ -126,14 +126,14 @@ class Home extends Component {
         storage.ref(fileName).getDownloadURL().then((url) => {
             this.setState({imageUrl: url})
         }).catch((err) => {
-            errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+            let errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
             this.setState({imageUrl: errorUrl})
         })
         let fileName2 = "1-" + year + "-" + month + "-" + day + ".jpg"
         storage.ref(fileName2).getDownloadURL().then((url) => {
             this.setState({imageUrl2: url})
         }).catch((err) => {
-            errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+            let errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
             this.setState({imageUrl2: errorUrl})
         })
         db.ref('/').update({
@@ -149,7 +149,7 @@ class Home extends Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                        Pots 1 & 2
+                        Top Pots
                     </Text>
                 </Text>
             </View>
@@ -175,7 +175,7 @@ class Home extends Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 3}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                        Pots 1 & 2
+                        Top Pots
                     </Text>
                 </Text>
             </View>
@@ -198,7 +198,7 @@ class Home extends Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                        Pots 3 & 4
+                        Bottom Pots
                     </Text>
                 </Text>
             </View>
@@ -224,7 +224,7 @@ class Home extends Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={{flex: 1, paddingLeft: 20, paddingTop: 15, paddingBottom: 3}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                        Pots 3 & 4
+                        Bottom Pots
                     </Text>
                 </Text>
             </View>
@@ -299,19 +299,19 @@ class Home extends Component {
                     <View style={styles.modalContainer}>
                         <Text style={{fontSize: 25, fontWeight: 'bold'}}>{this.state.dayPressed}</Text>
                         <View style={{height: 20}}/>
-                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Pots 1 {'&'} 2</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Top Pots</Text>
                         <View style={{height: 10}}/>
                         <Image
                             source={{uri: this.state.imageUrl}}
-                            style={{width: 175, height: 175, alignSelf: 'center'}}
+                            style={{width: 175, height: 175, alignSelf: 'center', transform: [{rotate: '90deg'}]}}
                             resizeMode='contain'
                         />
                         <View style={{height: 10}}/>
-                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Pots 3 {'&'} 4</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#669850'}}>Bottom Pots</Text>
                         <View style={{height: 10}}/>
                         <Image
                             source={{uri: this.state.imageUrl2}}
-                            style={{width: 175, height: 175, alignSelf: 'center'}}
+                            style={{width: 175, height: 175, alignSelf: 'center', transform: [{rotate: '90deg'}]}}
                             resizeMode='contain'
                         />
                         <View style={{height: 10}}/>
@@ -345,7 +345,7 @@ class Home extends Component {
                         />
 
                     </View>
-                    <View style={{height: 25}}/>
+                    <View style={{height: 45}}/>
                 </ScrollView>
             );
         }

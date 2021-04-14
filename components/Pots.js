@@ -40,7 +40,7 @@ class Pots extends Component {
             else {
                 carouselItems[i]["title"] = i + " days ago"
             }
-            day = (parseInt(dd)-i).toString()
+            let day = (parseInt(dd)-i).toString()
             if (day < 10) {
                 day = "0" + day
             }
@@ -48,7 +48,7 @@ class Pots extends Component {
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems[i]["url"] = url
             }).catch((err) => {
-                errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+                let errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
                 carouselItems[i]["url"] = errorUrl
             })
         }
@@ -68,7 +68,7 @@ class Pots extends Component {
             storage.ref(fileName).getDownloadURL().then((url) => {
                 carouselItems2[i]["url"] = url
             }).catch((err) => {
-                errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
+                let errorUrl = 'https://firebasestorage.googleapis.com/v0/b/smart-garden-db.appspot.com/o/no_image.png?alt=media&token=5d6f1188-bbd5-4161-bbaa-478c7d15e785'
                 carouselItems2[i]["url"] = errorUrl
             })
         }
@@ -125,7 +125,7 @@ class Pots extends Component {
             <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 10, fontWeight: 'bold'}}>{item["item"]["title"]}</Text>
             <Image
                 source={{uri: item["item"]["url"] }}
-                style={{width: 175, height: 175, alignSelf: 'center'}}
+                style={{width: 175, height: 175, alignSelf: 'center', transform: [{rotate: '90deg'}]}}
                 resizeMode='contain'
             />
           </View>
@@ -220,7 +220,7 @@ class Pots extends Component {
                     style={styles.pot}
                     underlayColor='#d4f0c7'
                 >
-                    <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots 1 {'&'} 2</Text>
+                    <Text style={{fontSize: 25, fontWeight: 'bold'}}>Top Pots</Text>
                     <View style={{alignItems: 'center'}}>
                         <Image
                             source={require('../assets/pot-icon.png')}
@@ -236,7 +236,7 @@ class Pots extends Component {
                         alignItems: 'center',
                         padding: 3
                     }}>
-                        <Text style={{fontSize: 15}}>{this.state.plants[0]['name']}</Text>
+                        <Text style={{fontSize: 15}}>{this.state.plants[0]['name'].replace(/_/g, " ")}</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -244,7 +244,7 @@ class Pots extends Component {
                         style={styles.pot}
                         underlayColor='#d4f0c7'
                     >
-                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Pots 3 {'&'} 4</Text>
+                        <Text style={{fontSize: 25, fontWeight: 'bold'}}>Bottom Pots</Text>
                         <View style={{alignItems: 'center'}}>
                             <Image
                                 source={require('../assets/pot-icon.png')}
@@ -260,7 +260,7 @@ class Pots extends Component {
                             alignItems: 'center',
                             padding: 3
                         }}>
-                            <Text style={{fontSize: 15}}>{this.state.plants[1]['name']}</Text>
+                            <Text style={{fontSize: 15}}>{this.state.plants[1]['name'].replace(/_/g, " ")}</Text>
                         </View>
                     </TouchableOpacity>
                 <View style={{height: 50}}></View>
