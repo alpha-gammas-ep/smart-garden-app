@@ -7,7 +7,10 @@ import WelcomeScreen from './components/WelcomeScreen.js';
 import Tabs from './components/Tabs.js';
 import Home from './components/Home.js';
 import Settings from './components/Settings.js';
-import Logo from './components/Logo.js'
+import Logo from './components/Logo.js';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 

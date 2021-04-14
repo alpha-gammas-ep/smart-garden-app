@@ -27,55 +27,57 @@ class Controls extends Component {
 
     setButtonText(num) {
         if (num == 1) {
-            if (this.state.data['controls']['plant_0']['water'] == 0) {
-                return 'Top Water On'
-            } else {
-                return 'Top Water Off'
-            }
+            return 'Water Top'
         } else if (num == 2) {
-            if (this.state.data['controls']['plant_1']['water'] == 0) {
-                return 'Bottom Water On'
-            } else {
-                return 'Bottom Water Off'
-            }
+            return 'Water Bottom'
         } else if (num == 3) {
-            if (this.state.data['controls']['light'] == 0) {
-                return 'Lights On'
+            if (this.state.data['controls']['manual_light'] == 1) {
+                if (this.state.data['controls']['light'] == 1) {
+                    return 'Lights Off'
+                } else {
+                    return 'Lights On'
+                }
             } else {
-                return 'Lights Off'
+                return 'Disabled'
+            }
+        } else if (num == 4) {
+            if (this.state.data['controls']['manual_light'] == 1) {
+                return 'Automatic'
+            } else {
+                return 'Manual'
             }
         }
     }
 
     updateButtonText(num) {
         if (num == 1) {
-            if (this.state.data['controls']['plant_0']['water'] == 0) {    
-                db.ref('/controls/plant_0').update({
-                    water: 1
-                })
-            } else {
-                db.ref('/controls/plant_0').update({
-                    water: 0
-                })
-            }
+            db.ref('/controls/plant_0').update({
+                water: 1
+            })
         } else if (num == 2) {
-            if (this.state.data['controls']['plant_1']['water'] == 0) {    
-                db.ref('/controls/plant_1').update({
-                    water: 1
-                })
-            } else {
-                db.ref('/controls/plant_1').update({
-                    water: 0
-                })
-            }
+            db.ref('/controls/plant_1').update({
+                water: 1
+            })
         } else if (num == 3) {
-            if (this.state.data['controls']['light'] == 0) {    
+            if (this.state.data['controls']['manual_light'] == 1) {
+                if (this.state.data['controls']['light'] == 0) {    
+                    db.ref('/controls').update({
+                        light: 1
+                    })
+                } else if (this.state.data['controls']['light'] == 1) {
+                    db.ref('/controls').update({
+                        light: 0
+                    })
+                }
+            }
+        } else if (num == 4) {
+            if (this.state.data['controls']['manual_light'] == 0) {    
                 db.ref('/controls').update({
-                    light: 1
+                    manual_light: 1
                 })
             } else {
                 db.ref('/controls').update({
-                    light: 0
+                    manual_light: 0
                 })
             }
         }
@@ -113,7 +115,10 @@ class Controls extends Component {
                             <View style={styles.buttonWrapper}>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        this.updateButtonText(1)
+                                        {this.updateButtonText(1)
+                                        db.ref('/plants/plant_0').update({
+                                            num_waters: this.state.data['plants']['plant_0']['num_waters'] + 1
+                                        })}
                                     }
                                     style={styles.waterButton}
                                     underlayColor='#5B98BB'
@@ -125,8 +130,11 @@ class Controls extends Component {
                             <View style={styles.buttonWrapper}>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        this.updateButtonText(2)
-                                    }
+                                        {this.updateButtonText(2)
+                                            db.ref('/plants/plant_1').update({
+                                                num_waters: this.state.data['plants']['plant_1']['num_waters'] + 1
+                                            })}
+                                        }
                                     style={styles.waterButton}
                                     underlayColor='#5B98BB'
                                     >
@@ -155,9 +163,25 @@ class Controls extends Component {
                             <View style={styles.buttonWrapper}>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        this.updateButtonText(3)
+                                        this.updateButtonText(4)
                                     }
                                     style={styles.lightButton}
+                                    underlayColor='#5B98BB'
+                                    >
+                                    <Text style={{
+                                        fontSize: 12,
+                                        fontWeight: 'bold'
+                                    }}>
+                                        {this.setButtonText(4)}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.buttonWrapper}>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        this.updateButtonText(3)
+                                    }
+                                    style={this.state.data['controls']['manual_light'] == 1 ? styles.lightButton : styles.disabledButton}
                                     underlayColor='#5B98BB'
                                     >
                                     <Text style={{
@@ -282,6 +306,16 @@ const styles = StyleSheet.create({
         borderColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center'  
+    },
+    disabledButton: {
+        width: 150,
+        height: 40,
+        backgroundColor:'#d3d3d3',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     photosButton: {
         width: 150,

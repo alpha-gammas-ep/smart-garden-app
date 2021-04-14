@@ -4,7 +4,7 @@ import {db} from '../config';
 import * as Notifications from 'expo-notifications';
 
 let ref = db.ref('/');
-const TOTAL_VOLUME = 14748.4;
+const TOTAL_VOLUME = 11061.3;
 
 class Statistics extends Component {
     constructor(props) {
@@ -80,28 +80,13 @@ class Statistics extends Component {
                 data: allData,
                 loading: false
             });
+            if (allData['stats']['tank'] == 0) {
+                this.sendRefillNotif()
+            }
         });
     }
 
-    scheduleRefillNotif() {
-        let time_left_0 = this.state.data['plants']['plant_0']['water_interval'];
-        let time_left_1 = this.state.data['plants']['plant_1']['water_interval'];
-        let volume_remaining = TOTAL_VOLUME;
-        let total_time = 0;
-        while (volume_remaining > time_left_0 && volume_remaining > time_left_1) {
-            if (time_left_0 < time_left_1) {
-                volume_remaining -= this.state.data['plants']['plant_0']['water_volume'];
-                time_left_1 -= time_left_0;
-                time_left_0 = this.state.data['plants']['plant_0']['water_interval'];
-                total_time += time_left_0;
-            } else {
-                volume_remaining -= this.state.data['plants']['plant_1']['water_volume'];
-                time_left_0 -= time_left_1;
-                time_left_1 = this.state.data['plants']['plant_1']['water_interval'];
-                total_time += time_left_1;
-            }
-        }
-        total_time = total_time / 1000;
+    sendRefillNotif() {
         const schedulingOptions = {
             content: {
               title: 'Refill Tank',
@@ -113,8 +98,43 @@ class Statistics extends Component {
             },
           };
 
-        // Notifications show only when app is not active.
-        // (ie. another app being used or device's screen is locked)
+        Notifications.scheduleNotificationAsync(
+            schedulingOptions,
+        );
+    }
+
+    scheduleRefillNotif() {
+        let time_left_0 = parseInt(this.state.data['plants']['plant_0']['water_interval']);
+        let time_left_1 = parseInt(this.state.data['plants']['plant_1']['water_interval']);
+        let water_volume_0 = parseInt(this.state.data['plants']['plant_0']['water_volume']);
+        let water_volume_1 = parseInt(this.state.data['plants']['plant_1']['water_volume']);
+        let volume_remaining = TOTAL_VOLUME;
+        let total_time = 0;
+        while (volume_remaining > water_volume_0 && volume_remaining > water_volume_1) {
+            if (time_left_0 < time_left_1) {
+                volume_remaining -= water_volume_0;
+                time_left_1 -= time_left_0;
+                time_left_0 = parseInt(this.state.data['plants']['plant_0']['water_interval']);
+                total_time += time_left_0;
+            } else {
+                volume_remaining -= water_volume_1;
+                time_left_0 -= time_left_1;
+                time_left_1 = parseInt(this.state.data['plants']['plant_1']['water_interval']);
+                total_time += time_left_1;
+            }
+        }
+        total_time = total_time / 1000;
+        const schedulingOptions = {
+            content: {
+              title: 'Refill Tank',
+              body: 'Tank is Empty!',
+              sound: true,
+            },
+            trigger: {
+              seconds: total_time,
+            },
+          };
+
         Notifications.scheduleNotificationAsync(
             schedulingOptions,
         );
@@ -129,7 +149,7 @@ class Statistics extends Component {
         }
         const schedulingOptions = {
             content: {
-              title: 'Fertilize Pots 1 & 2',
+              title: 'Fertilize Top Pots',
               body: 'Time to Fertilize!',
               sound: true,
             },
@@ -154,7 +174,7 @@ class Statistics extends Component {
         }
         const schedulingOptions = {
             content: {
-              title: 'Fertilize Pots 3 & 4',
+              title: 'Fertilize Bottom Pots',
               body: 'Time to Fertilize!',
               sound: true,
             },
@@ -171,19 +191,14 @@ class Statistics extends Component {
     }
 
     getPercentVolume() {
-        let diff_0 = this.state.data['plants']['plant_0']['last_watered'] - this.state.data['stats']['last_refilled'];
-        let diff_1 = this.state.data['plants']['plant_1']['last_watered'] - this.state.data['stats']['last_refilled'];
-        let water_0 = 0;
-        let water_1 = 0;
-        if (diff_0 > 0) {
-            water_0 = (1 + Math.floor(diff_0 / this.state.data['plants']['plant_0']['water_interval'])) * this.state.data['plants']['plant_0']['water_volume'] * 2;
+        if (this.state.data['stats']['tank'] == 0) {
+            return 0
         }
-        if (diff_1 > 0) {
-            water_1 = (1 + Math.floor(diff_1 / this.state.data['plants']['plant_1']['water_interval'])) * this.state.data['plants']['plant_1']['water_volume'] * 2;
-        }
-        return Math.max(Math.floor((TOTAL_VOLUME - water_0 - water_1) / TOTAL_VOLUME * 100), 0)
-        // console.log(Date.now())
-        // return performance.now();
+        let num_waters_0 = this.state.data['plants']['plant_0']['num_waters'];
+        let num_waters_1 = this.state.data['plants']['plant_1']['num_waters'];
+        let volume_0 = this.state.data['plants']['plant_0']['water_volume'];
+        let volume_1 = this.state.data['plants']['plant_1']['water_volume'];
+        return Math.max(Math.floor((TOTAL_VOLUME - num_waters_0 * volume_0 * 2 - num_waters_1 * volume_1 * 2) / TOTAL_VOLUME * 100), 0)
     }
     getDaysLeft0() {
         let timeElapsed = Date.now() - this.state.data['stats']['last_fertilized_0'];
@@ -241,9 +256,17 @@ class Statistics extends Component {
                             <TouchableOpacity
                                 onPress={() =>
                                     {db.ref('/stats').update({
-                                        last_refilled: Date.now()
+                                        last_refilled: Date.now(),
+                                        tank: 1
                                     })
-                                    this.scheduleRefillNotif()}
+                                    this.scheduleRefillNotif()
+                                    db.ref('/plants/plant_0').update({
+                                        num_waters: 0
+                                    })
+                                    db.ref('/plants/plant_1').update({
+                                        num_waters: 0
+                                    })
+                                    }
                                 }
                                 style={styles.refillButton}
                                 underlayColor='#5B98BB'
@@ -261,7 +284,7 @@ class Statistics extends Component {
                                 <Text style={styles.waterText}>Fertilizer</Text>
                             </View>
                             <View style={{flex: 1}}>
-                                <Text style={styles.potText}>Pots 1 {'&'} 2</Text>
+                                <Text style={styles.potText}>Top Pots</Text>
                             </View>
                         </View>
                         <View style={styles.imageContainer}>
@@ -302,7 +325,7 @@ class Statistics extends Component {
                                 <Text style={styles.waterText}>Fertilizer</Text>
                             </View>
                             <View style={{flex: 1}}>
-                                <Text style={styles.potText}>Pots 3 {'&'} 4</Text>
+                                <Text style={styles.potText}>Bottom Pots</Text>
                             </View>
                         </View>
                         <View style={styles.imageContainer}>
